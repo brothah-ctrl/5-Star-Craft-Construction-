@@ -13,7 +13,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond"', 'serif'],
+        serif: ['Fraunces', 'serif'],
         sans: ['Manrope', 'sans-serif'],
       },
       colors: {

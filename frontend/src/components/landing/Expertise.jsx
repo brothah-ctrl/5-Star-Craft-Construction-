@@ -1,28 +1,15 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Hammer, Home, Paintbrush, Wrench, HardHat, Layers, Umbrella } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
 
 const DISCIPLINES = [
-    {
-        title: "Custom Cabinetry",
-        desc: "Kitchens, wardrobes and storage built around the way you live — measured twice, mitred once.",
-    },
-    {
-        title: "Architectural Joinery",
-        desc: "Staircases, wall panelling, doors and screens that give a building its character.",
-    },
-    {
-        title: "Handcrafted Furniture",
-        desc: "Dining tables, benches and one-off pieces in solid oak, ash and walnut.",
-    },
-    {
-        title: "Spatial Fitting",
-        desc: "Complete fit-outs for homes, retail and workspaces — from lining to final finish.",
-    },
-    {
-        title: "Wood Restoration",
-        desc: "Heritage timber, period joinery and tired furniture brought carefully back to life.",
-    },
+    { icon: Hammer, title: "Joinery", desc: "Staircases, panelling, doors, wardrobes and bespoke fitments — measured twice, mitred once." },
+    { icon: Home, title: "Home Renovations", desc: "Full-room and whole-home transformations, managed from strip-out to final coat." },
+    { icon: Paintbrush, title: "Painting & Tiling", desc: "Crisp lines, level tiles and durable finishes for walls, floors and splashbacks." },
+    { icon: Wrench, title: "Plumbing", desc: "Repairs, reroutes and full installations for kitchens and bathrooms." },
+    { icon: HardHat, title: "Roofing & Fencing", desc: "Weather-tight roofing, timely repairs and secure, sharp-looking boundaries." },
+    { icon: Layers, title: "Woodwork & Countertops", desc: "Kitchens, counters and cabinetry in solid timber and stone-look finishes." },
+    { icon: Umbrella, title: "Deck Repairs & Shadeports", desc: "Decks revived board by board, and shade structures built for harsh sun." },
 ];
 
 export const Expertise = () => (
@@ -32,19 +19,20 @@ export const Expertise = () => (
                 <div className="lg:sticky lg:top-32">
                     <Reveal>
                         <Overline>The Disciplines</Overline>
-                        <h2 className="mt-6 font-serif text-4xl font-medium leading-tight tracking-tight text-[#1A1A1A] sm:text-5xl">
-                            Five crafts. <span className="italic text-[#B07D4A]">One standard.</span>
+                        <h2 className="mt-6 font-serif text-4xl font-medium leading-tight tracking-tight text-[#16233F] sm:text-5xl">
+                            Seven trades. <span className="italic text-[#B8912A]">One standard.</span>
                         </h2>
-                        <p className="mt-6 max-w-sm text-base leading-relaxed text-[#5C564E]">
-                            Whether it's a single shelf or a full architectural fit-out, every
-                            piece leaves the bench with the same hand-finished standard.
+                        <p className="mt-6 max-w-sm text-base leading-relaxed text-[#55606E]">
+                            From a single repair to a full-home renovation, every job leaves
+                            site with the same hand-finished standard.
                         </p>
                     </Reveal>
                     <Reveal delay={0.2}>
-                        <div className="group mt-10 overflow-hidden rounded-[1.75rem] border border-[#E3D5CA]">
+                        <div className="group mt-10 overflow-hidden rounded-[1.75rem] border border-[#DEE2E8]">
                             <img
                                 src={IMAGES.cabinetry}
                                 alt="Custom lacquered nightstand with brass detailing by 5 Star"
+                                loading="lazy"
                                 className="h-64 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 data-testid="expertise-image"
                             />
@@ -57,23 +45,26 @@ export const Expertise = () => (
                 {DISCIPLINES.map((d, i) => (
                     <Reveal key={d.title} delay={i * 0.06}>
                         <div
-                            className={`group grid grid-cols-[auto_1fr_auto] items-start gap-6 border-t border-[#E3D5CA] py-10 md:gap-10 ${
+                            className={`group grid grid-cols-[auto_1fr_auto] items-start gap-6 border-t border-[#DEE2E8] py-10 md:gap-10 ${
                                 i === DISCIPLINES.length - 1 ? "border-b" : ""
                             }`}
                             data-testid={`expertise-row-${i + 1}`}
                         >
-                            <span className="pt-2 font-serif text-xl italic text-[#B07D4A]">
-                                0{i + 1}
+                            <span className="pt-2 font-serif text-xl italic text-[#B8912A]">
+                                {String(i + 1).padStart(2, "0")}
                             </span>
                             <div>
-                                <h3 className="font-serif text-3xl font-medium tracking-tight text-[#1A1A1A] transition-colors duration-300 group-hover:text-[#B07D4A] md:text-4xl">
-                                    {d.title}
-                                </h3>
-                                <p className="mt-3 max-w-lg text-sm leading-relaxed text-[#5C564E] md:text-base">
+                                <div className="flex items-center gap-4">
+                                    <d.icon className="h-6 w-6 shrink-0 text-[#B8912A]" />
+                                    <h3 className="font-serif text-3xl font-medium tracking-tight text-[#16233F] transition-colors duration-300 group-hover:text-[#B8912A] md:text-4xl">
+                                        {d.title}
+                                    </h3>
+                                </div>
+                                <p className="mt-3 max-w-lg text-sm leading-relaxed text-[#55606E] md:text-base">
                                     {d.desc}
                                 </p>
                             </div>
-                            <ArrowUpRight className="mt-2 h-5 w-5 text-[#B07D4A] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                            <ArrowUpRight className="mt-2 h-5 w-5 text-[#B8912A] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
                         </div>
                     </Reveal>
                 ))}

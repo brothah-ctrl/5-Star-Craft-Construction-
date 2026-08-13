@@ -15,7 +15,7 @@ const TESTIMONIALS = [
     {
         quote: "They restored my grandmother's yellowwood table with such care it brought my mother to tears.",
         name: "Naledi P.",
-        role: "Restoration Client",
+        role: "Renovation Client",
     },
     {
         quote: "From first sketch to final fit, the communication was flawless. The cabinetry is simply perfect.",
@@ -37,18 +37,18 @@ const TESTIMONIALS = [
 const Stars = () => (
     <div className="flex gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} className="h-3.5 w-3.5 fill-[#D4A373] text-[#D4A373]" />
+            <Star key={i} className="h-3.5 w-3.5 fill-[#C9A227] text-[#C9A227]" />
         ))}
     </div>
 );
 
 export const Testimonials = () => (
-    <section id="testimonials" className="bg-[#EAE6DF]/50 px-6 py-28 lg:px-12 lg:py-40" data-testid="testimonials-section">
+    <section id="testimonials" className="bg-[#E9EBEF]/50 px-6 py-28 lg:px-12 lg:py-40" data-testid="testimonials-section">
         <div className="mx-auto max-w-[1400px]">
             <Reveal>
                 <Overline>Client &amp; Architect Voices</Overline>
-                <h2 className="mt-6 max-w-2xl font-serif text-4xl font-medium leading-tight tracking-tight text-[#1A1A1A] sm:text-5xl">
-                    Trusted with homes, <span className="italic text-[#B07D4A]">specified by architects.</span>
+                <h2 className="mt-6 max-w-2xl font-serif text-4xl font-medium leading-tight tracking-tight text-[#16233F] sm:text-5xl">
+                    Trusted with homes, <span className="italic text-[#B8912A]">specified by architects.</span>
                 </h2>
             </Reveal>
 
@@ -56,22 +56,22 @@ export const Testimonials = () => (
                 {TESTIMONIALS.map((t, i) => (
                     <Reveal key={t.name} delay={(i % 3) * 0.1}>
                         <figure
-                            className="flex h-full flex-col justify-between rounded-[1.75rem] border border-[#E3D5CA] bg-[#F9F8F6] p-8 transition-transform duration-300 hover:-translate-y-1"
+                            className="flex h-full flex-col justify-between rounded-[1.75rem] border border-[#DEE2E8] bg-[#F7F7F5] p-8 transition-transform duration-300 hover:-translate-y-1"
                             data-testid={`testimonial-card-${i + 1}`}
                         >
                             <div>
                                 <Stars />
                                 <blockquote
-                                    className="mt-6 font-serif text-xl leading-relaxed text-[#2D241E]"
+                                    className="mt-6 font-serif text-xl leading-relaxed text-[#16233F]"
                                     dangerouslySetInnerHTML={{ __html: `&ldquo;${t.quote}&rdquo;` }}
                                 />
                             </div>
                             <figcaption className="mt-8">
                                 <p
-                                    className="text-sm font-semibold text-[#1A1A1A]"
+                                    className="text-sm font-semibold text-[#16233F]"
                                     dangerouslySetInnerHTML={{ __html: t.name }}
                                 />
-                                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#5C564E]">
+                                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#55606E]">
                                     {t.role}
                                 </p>
                             </figcaption>

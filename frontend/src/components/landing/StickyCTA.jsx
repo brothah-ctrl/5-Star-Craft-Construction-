@@ -14,7 +14,7 @@ export const StickyCTA = () => (
             href={PHONE_URL}
             data-testid="sticky-call-button"
             aria-label="Call Clive"
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-[#E3D5CA] bg-[#F9F8F6]/85 text-[#2D241E] shadow-lg backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-[#DEE2E8] bg-[#F7F7F5]/85 text-[#16233F] shadow-lg backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
         >
             <Phone className="h-4.5 w-4.5" size={18} />
         </a>
@@ -23,7 +23,7 @@ export const StickyCTA = () => (
             target="_blank"
             rel="noreferrer"
             data-testid="sticky-whatsapp-cta"
-            className="flex items-center gap-2 rounded-full bg-[#2D241E] px-6 py-3.5 text-sm font-medium text-[#F9F8F6] shadow-xl transition-transform duration-300 hover:-translate-y-1"
+            className="flex items-center gap-2 rounded-full bg-[#16233F] px-6 py-3.5 text-sm font-medium text-[#F7F7F5] shadow-xl transition-transform duration-300 hover:-translate-y-1"
         >
             <MessageCircle className="h-4 w-4" />
             Chat with Clive

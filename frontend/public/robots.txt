@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bespoke-timber-7.preview.emergentagent.com/sitemap.xml

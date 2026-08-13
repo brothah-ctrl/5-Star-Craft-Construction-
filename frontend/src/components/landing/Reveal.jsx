@@ -15,7 +15,7 @@ export const Reveal = ({ children, delay = 0, className = "", y = 36 }) => (
 export const Overline = ({ children, light = false }) => (
     <p
         className={`text-xs uppercase tracking-[0.28em] ${
-            light ? "text-[#D4A373]" : "text-[#B07D4A]"
+            light ? "text-[#C9A227]" : "text-[#B8912A]"
         }`}
     >
         {children}

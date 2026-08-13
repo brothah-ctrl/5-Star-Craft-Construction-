@@ -171,22 +171,22 @@ async def create_enquiry(input: EnquiryCreate):
     email_sent = False
     if EMAIL_KEY and OWNER_EMAIL and EMAIL_FROM_NAME:
         def row(label, value):
-            return (f'<tr><td style="padding:8px 16px 8px 0;font-size:12px;color:#8a7f72;'
+            return (f'<tr><td style="padding:8px 16px 8px 0;font-size:12px;color:#6b7480;'
                     f'text-transform:uppercase;letter-spacing:1px;vertical-align:top">{label}</td>'
                     f'<td style="padding:8px 0;font-size:14px;color:#1a1a1a">{value}</td></tr>')
         html = (
             '<table role="presentation" width="100%" style="background:#f9f8f6;padding:24px">'
             '<tr><td style="font-family:Arial,sans-serif">'
-            f'<h2 style="margin:0 0 16px;font-family:Georgia,serif;color:#2d241e">'
+            f'<h2 style="margin:0 0 16px;font-family:Georgia,serif;color:#16233f">'
             f'New project enquiry — {escape(input.service)}</h2>'
-            '<table role="presentation" style="border-top:1px solid #e3d5ca;padding-top:16px">'
+            '<table role="presentation" style="border-top:1px solid #dee2e8;padding-top:16px">'
             + row("Name", escape(input.name))
             + row("Phone", escape(input.phone))
             + row("Email", escape(input.email or "—"))
             + row("Service", escape(input.service))
             + row("Message", escape(input.message))
             + '</table>'
-            f'<p style="margin-top:24px;font-size:12px;color:#8a7f72">Sent by the '
+            f'<p style="margin-top:24px;font-size:12px;color:#6b7480">Sent by the '
             f'{escape(EMAIL_FROM_NAME)} website enquiry form.</p>'
             '</td></tr></table>')
         try:

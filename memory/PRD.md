@@ -40,6 +40,13 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - New photos in `/app/frontend/public/photos/`: wardrobe.jpg, wardrobe-progress.jpg, hinge.jpg, tiles.jpg
 - Backend env: EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME, OWNER_EMAIL (currently the Resend test address delivered@resend.dev — MUST be replaced with Clive's real email); httpx added to requirements
 
+## Implemented (2026-08-13, batch 3 — rebrand + SEO + mobile)
+- Full rebrand to the client's navy (#16233F) + gold (#B8912A/#C9A227) identity from their brand image; all sections, email template, tailwind tokens updated
+- Disciplines replaced with the client's seven trades (Joinery, Home Renovations, Painting & Tiling, Plumbing, Roofing & Fencing, Woodwork & Countertops, Deck Repairs & Shadeports) with lucide icons; marquee, quote-form services, gallery tags, footer updated to match
+- Heading typeface changed Cormorant Garamond → Fraunces (distinctive editorial serif); body stays Manrope
+- SEO: full meta/OG/Twitter tags, canonical, robots directives, JSON-LD HomeAndConstructionBusiness schema with 7 services + phone, robots.txt, sitemap.xml, llms.txt (AI discoverability), semantic single-h1 structure, descriptive alts
+- Mobile-first: hamburger menu with animated dropdown on <md, stacked layouts verified at 430px, lazy-loading on all below-fold images, fetchPriority on hero image
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
