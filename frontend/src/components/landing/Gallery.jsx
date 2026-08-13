@@ -11,10 +11,12 @@ export const Gallery = () => {
 
     const PROJECTS = [
         { src: IMAGES.kitchen, title: "The Constantia Kitchen", tag: "Custom Cabinetry" },
-        { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Architectural Joinery" },
+        { src: IMAGES.wardrobe, title: "LED-lit Fitted Wardrobe", tag: "Custom Cabinetry" },
         { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Handcrafted Furniture" },
+        { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Architectural Joinery" },
         { src: IMAGES.floorAfter, title: "Ebony Floor Revival", tag: "Wood Restoration" },
-    ].map((p, i) => ({ ...p, span: PROJECT_SPANS[i] }));
+        { src: IMAGES.tiles, title: "Porcelain Floor Fitting", tag: "Spatial Fitting" },
+    ].map((p, i) => ({ ...p, span: PROJECT_SPANS[i % PROJECT_SPANS.length] }));
 
     useEffect(() => {
         const onKey = (e) => e.key === "Escape" && setActive(null);

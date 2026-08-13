@@ -37,13 +37,16 @@ export const Workshop = () => (
 
                 <div className="flex flex-col gap-6 md:col-span-4">
                     <Reveal delay={0.1}>
-                        <div className="group overflow-hidden rounded-[2rem] border border-[#E3D5CA]">
+                        <div className="group relative overflow-hidden rounded-[2rem] border border-[#E3D5CA]">
                             <img
                                 src={IMAGES.workshop1}
-                                alt="Freshly revived ebony-stained timber floor"
-                                className="h-56 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                alt="Fitted wardrobe mid-install in the workshop"
+                                className="kenburns h-56 w-full object-cover"
                                 data-testid="workshop-detail-image"
                             />
+                            <div className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-white/75 px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-[#2D241E] backdrop-blur-xl">
+                                On the bench now
+                            </div>
                         </div>
                     </Reveal>
                     <Reveal delay={0.2} className="flex-1">

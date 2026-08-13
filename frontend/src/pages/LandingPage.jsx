@@ -6,12 +6,13 @@ import { Gallery } from "@/components/landing/Gallery";
 import { BeforeAfter } from "@/components/landing/BeforeAfter";
 import { Expertise } from "@/components/landing/Expertise";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { QuoteForm } from "@/components/landing/QuoteForm";
 import { Footer } from "@/components/landing/Footer";
 import { StickyCTA } from "@/components/landing/StickyCTA";
 
 export const IMAGES = {
     hero: "/photos/kitchen.jpg",
-    workshop1: "/photos/floor-after.png",
+    workshop1: "/photos/wardrobe-progress.jpg",
     workshop2: "/photos/headset-crop.jpg",
     cabinetry: "/photos/bedside.jpg",
     kitchen: "/photos/kitchen.jpg",
@@ -19,6 +20,10 @@ export const IMAGES = {
     bedside: "/photos/bedside.jpg",
     floorBefore: "/photos/floor-before.png",
     floorAfter: "/photos/floor-after.png",
+    wardrobe: "/photos/wardrobe.jpg",
+    wardrobeProgress: "/photos/wardrobe-progress.jpg",
+    tiles: "/photos/tiles.jpg",
+    hinge: "/photos/hinge.jpg",
 };
 
 export const WHATSAPP_URL = "https://wa.me/27840900658";
@@ -37,6 +42,7 @@ export default function LandingPage() {
                 <BeforeAfter />
                 <Expertise />
                 <Testimonials />
+                <QuoteForm />
             </main>
             <Footer />
             <StickyCTA />

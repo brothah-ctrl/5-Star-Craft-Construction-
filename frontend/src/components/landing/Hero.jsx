@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { Overline } from "@/components/landing/Reveal";
-import { IMAGES, WHATSAPP_URL } from "@/pages/LandingPage";
+import { IMAGES } from "@/pages/LandingPage";
 
 const EASE = [0.16, 1, 0.3, 1];
 const LINES = ["Custom craftsmanship,", "bespoke timber work,", "tailored to every space."];
@@ -52,9 +52,7 @@ export const Hero = () => {
 
                         <div className="mt-10 flex flex-wrap items-center gap-4">
                             <a
-                                href={WHATSAPP_URL}
-                                target="_blank"
-                                rel="noreferrer"
+                                href="#quote"
                                 data-testid="hero-consultation-cta"
                                 className="group flex items-center gap-2 rounded-full bg-[#2D241E] px-8 py-4 text-sm font-medium text-[#F9F8F6] transition-transform duration-300 hover:-translate-y-1"
                             >

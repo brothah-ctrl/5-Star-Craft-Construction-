@@ -33,14 +33,24 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Page title/meta updated; all interactive elements have data-testids
 - Real user photos stored in `/app/frontend/public/photos/` (kitchen.jpg, headset-crop.jpg, bedside.jpg, floor-before.png, floor-after.png); headboard source had screenshot UI icons cropped off
 
+## Implemented (2026-08-13, batch 2)
+- Project enquiry form (id="quote", `QuoteForm.jsx`): name/phone/email/service/message → POST /api/enquiries → saved to MongoDB `enquiries` + email via Emergent managed Resend proxy (server-side template, guardrail gate per playbook); success state + WhatsApp/call alternatives; hero "Request a Consultation" and nav "Get a Quote" scroll to it
+- Workshop "living photo" slots (Ken Burns CSS motion): wardrobe mid-install + hinge install with "On the bench now" chips — ready to be swapped for autoplay muted video clips when supplied
+- Gallery expanded to 6 real projects (added LED-lit fitted wardrobe, porcelain floor fitting — WhatsApp screenshot overlay cropped off tiles photo)
+- New photos in `/app/frontend/public/photos/`: wardrobe.jpg, wardrobe-progress.jpg, hinge.jpg, tiles.jpg
+- Backend env: EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME, OWNER_EMAIL (currently the Resend test address delivered@resend.dev — MUST be replaced with Clive's real email); httpx added to requirements
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
-- Before/after floor photos are two different rooms (user-supplied) — a matched same-angle pair would make the slider even stronger
-- No backend/database features; no auth
+- OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
+- No workshop video clips uploaded yet — living-photo motion used as stand-in
+- Before/after floor photos are two different rooms (user-supplied)
+- No auth
 
 ## Backlog
+- P0: Replace OWNER_EMAIL with Clive's real email address (one env change + backend restart)
 - P0: Real testimonials from past clients
+- P1: Upload phone-shot workshop video clips → convert Ken Burns slots to autoplay muted loops
 - P1: Matched before/after photo pair (same room, same angle) for the restoration slider
-- P1: More project photos as jobs complete — gallery is data-driven, easy to extend
-- P2: Quote-request form that saves enquiries + email notification
 - P2: Google Business / Instagram link, service-area map
+- P2: Admin view for saved enquiries (requires auth)

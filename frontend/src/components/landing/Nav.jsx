@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { WHATSAPP_URL } from "@/pages/LandingPage";
 
 const links = [
     { label: "Work", href: "#work" },
@@ -49,9 +48,7 @@ export const Nav = () => (
             </div>
 
             <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
+                href="#quote"
                 data-testid="nav-quote-button"
                 className="rounded-full bg-[#2D241E] px-5 py-2.5 text-sm text-[#F9F8F6] transition-transform duration-300 hover:-translate-y-0.5"
             >
