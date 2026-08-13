@@ -6,6 +6,7 @@ import { Gallery } from "@/components/landing/Gallery";
 import { BeforeAfter } from "@/components/landing/BeforeAfter";
 import { Expertise } from "@/components/landing/Expertise";
 import { Testimonials } from "@/components/landing/Testimonials";
+import { ServiceAreas } from "@/components/landing/ServiceAreas";
 import { QuoteForm } from "@/components/landing/QuoteForm";
 import { Footer } from "@/components/landing/Footer";
 import { StickyCTA } from "@/components/landing/StickyCTA";
@@ -29,6 +30,8 @@ export const IMAGES = {
 export const WHATSAPP_URL = "https://wa.me/27840900658";
 export const PHONE_URL = "tel:+27840900658";
 export const PHONE_DISPLAY = "+27 84 090 0658";
+export const GOOGLE_BUSINESS_URL =
+    "https://www.google.com/search?q=5+Star+Crafts+%26+Construction+Knysna+Western+Cape";
 
 export default function LandingPage() {
     return (
@@ -42,6 +45,7 @@ export default function LandingPage() {
                 <BeforeAfter />
                 <Expertise />
                 <Testimonials />
+                <ServiceAreas />
                 <QuoteForm />
             </main>
             <Footer />

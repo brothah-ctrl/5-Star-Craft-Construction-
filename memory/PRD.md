@@ -47,6 +47,12 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - SEO: full meta/OG/Twitter tags, canonical, robots directives, JSON-LD HomeAndConstructionBusiness schema with 7 services + phone, robots.txt, sitemap.xml, llms.txt (AI discoverability), semantic single-h1 structure, descriptive alts
 - Mobile-first: hamburger menu with animated dropdown on <md, stacked layouts verified at 430px, lazy-loading on all below-fold images, fetchPriority on hero image
 
+## Implemented (2026-08-13, batch 4 — local SEO + Google Business)
+- Service Areas section (id="areas", `ServiceAreas.jsx`): navy band with Garden Route copy, 7 area chips (Knysna, Plettenberg Bay, George, Wilderness, Sedgefield, Mossel Bay, Greater Western Cape), Google Business card with gold CTA; nav "Areas" link added
+- GOOGLE_BUSINESS_URL constant in `LandingPage.jsx` — currently a Google search placeholder; replace with the real Business Profile URL when provided
+- Local SEO: meta description/keywords now target Knysna/George/Plettenberg Bay/Garden Route; JSON-LD areaServed lists 6 Western Cape cities; llms.txt gained Service Areas block
+- Note: public/index.html changes require `sudo supervisorctl restart frontend` to be served by the dev server
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
