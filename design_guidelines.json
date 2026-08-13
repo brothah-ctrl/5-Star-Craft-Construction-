@@ -1,0 +1,137 @@
+{
+  "project_name": "5 STAR - CRAFTS & CONSTRUCTION",
+  "theme": "light",
+  "archetype": "Organic & Earthy / High-end Architectural",
+  "typography": {
+    "headings": {
+      "font_family": "Cormorant Garamond, serif",
+      "weights": ["300", "400", "600"],
+      "usage": "Used for all major headings, hero text, and manifesto chapters to provide a bespoke, high-end editorial feel.",
+      "styles": "tracking-tight or tracking-tighter for large sizes. Never center-align hero."
+    },
+    "body": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["300", "400", "500"],
+      "usage": "Used for body copy, supporting text, and UI elements (buttons, small labels) for modern readability."
+    },
+    "accent": {
+      "font_family": "Manrope, sans-serif",
+      "styles": "uppercase, tracking-[0.2em], text-xs or text-sm for overlines and labels."
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#F9F8F6",
+      "secondary": "#EAE6DF",
+      "description": "Soft linen and bright off-white for a spacious, airy feel."
+    },
+    "text": {
+      "primary": "#1A1A1A",
+      "secondary": "#5C564E",
+      "description": "Deep charcoal for high contrast, warm greys for secondary text."
+    },
+    "accents": {
+      "wood_light": "#E3D5CA",
+      "wood_warm": "#D4A373",
+      "walnut_dark": "#2D241E",
+      "description": "Natural wood tones for borders, subtle highlights, and the primary rich dark pill CTA."
+    }
+  },
+  "visual_enhancers": {
+    "surfaces": [
+      "No drop shadows on modern bento cards, use 1px solid borders with wood_light color.",
+      "Clipped frames for product photography (e.g., arch tops or slightly rounded corners rounded-2xl).",
+      "Floating sticky CTA uses 'Crystal Glass' (backdrop-blur-xl bg-white/70 border-white/40)."
+    ],
+    "textures": [
+      "Subtle noise overlay on the primary background to simulate linen/paper texture (opacity 2-3%)."
+    ]
+  },
+  "grids_and_layouts": {
+    "spacing_strategy": "Generous spacing. Use p-12, p-24, p-32 for section padding. Containers should have breathing room.",
+    "bento_grid": "For the workshop update, use a high-density asymmetric grid (e.g., md:grid-cols-12, spanning 8 and 4).",
+    "alignment": "Left-align primarily for a confident, editorial look. Avoid generic center-alignment unless intentional for testimonials."
+  },
+  "components": {
+    "hero": {
+      "description": "Large kinetic hero with a signature on-load moment. Masked line-by-line headline reveal. Subtle parallax image moment.",
+      "elements": ["H1 text-6xl+ tracking-tighter", "Supporting line", "Two CTAs (Primary is sticky)"]
+    },
+    "sticky_cta": {
+      "description": "Floating pill CTA linked to WhatsApp/Phone (+2784 090 0658 - Clive). Stays visible on scroll.",
+      "styles": "fixed bottom-8 right-8 z-50 bg-[#2D241E] text-white rounded-full px-6 py-3 flex items-center gap-2 shadow-xl hover:-translate-y-1 transition-transform"
+    },
+    "editorial_marquee": {
+      "description": "Slow moving text strip separating sections.",
+      "content": "Custom Cabinetry • Architectural Joinery • Handcrafted Furniture • Spatial Fitting • Wood Restoration",
+      "styles": "py-8 bg-[#EAE6DF] text-[#2D241E] font-serif text-3xl uppercase tracking-widest"
+    },
+    "workshop_bento": {
+      "description": "Bento layout showing recent workshop updates with real product photography treated deliberately (spotlight, clipped frames)."
+    },
+    "manifesto_chapters": {
+      "description": "Numbered sections detailing the studio's philosophy.",
+      "styles": "Large typography numbers (01, 02) paired with bold text, massive padding."
+    },
+    "testimonials_wall": {
+      "description": "Grid of quotes from clients and architects.",
+      "styles": "Minimalist cards, distinct typography."
+    }
+  },
+  "motion_and_interactions": {
+    "scroll": "Use Lenis for smooth momentum scrolling.",
+    "reveals": "Framer Motion for scroll-reveals (fade up, slow ease-out) and masked text reveals on load.",
+    "hover": "Image zoom inside clipped frames (overflow-hidden, scale-105 on hover)."
+  },
+  "media": {
+    "image_urls": {
+      "hero_background": {
+        "url": "https://images.unsplash.com/photo-1715760374522-a609a0c2f65e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjB0aW1iZXIlMjBpbnRlcmlvcnxlbnwwfHx8fDE3ODY2NDYzMzZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Empty room with wooden walls and beams. Used for the subtle parallax hero background or adjacent visual."
+      },
+      "workshop_1": {
+        "url": "https://images.unsplash.com/photo-1590880795696-20c7dfadacde?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxjYXJwZW50cnklMjB3b3Jrc2hvcCUyMGRldGFpbHxlbnwwfHx8fDE3ODY2NDYzMzZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Wooden table with workshop details. Used for the workshop bento grid."
+      },
+      "workshop_2": {
+        "url": "https://images.unsplash.com/photo-1659930087003-2d64e33181f7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxjYXJwZW50cnklMjB3b3Jrc2hvcCUyMGRldGFpbHxlbnwwfHx8fDE3ODY2NDYzMzZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Person cutting wood. Used for the workshop bento grid."
+      },
+      "cabinetry": {
+        "url": "https://images.unsplash.com/photo-1639405069836-f82aa6dcb900?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHwyfHxjdXN0b20lMjBjYWJpbmV0cnklMjBtb2Rlcm58ZW58MHx8fHwxNzg2NjQ2MzQ5fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Modern kitchen with custom cabinetry. Used in the expertise/services section."
+      }
+    }
+  },
+  "libraries_to_install": [
+    "framer-motion",
+    "lucide-react",
+    "@studio-freight/react-lenis",
+    "react-fast-marquee"
+  ],
+  "accessibility": {
+    "contrast": "Ensure #2D241E text on #F9F8F6 background passes APCA.",
+    "testing": "Add data-testid to all interactive elements (buttons, links)."
+  },
+  "instructions_to_main_agent": [
+    "Implement the entire page in standard React functional components.",
+    "Include 'react-lenis' wrapper at the root for smooth scrolling.",
+    "For the hero headline, split the text into lines and use framer-motion to reveal them from a masked container (overflow: hidden, translateY 100% to 0%).",
+    "Implement the floating sticky CTA with a high z-index and subtle shadow. The link must be 'https://wa.me/27840900658'.",
+    "Use react-fast-marquee for the editorial marquee.",
+    "Make the page feel extremely premium by applying large paddings (e.g. py-24, py-32). Do not cram content.",
+    "DO NOT use Inter or standard fonts. Import 'Cormorant Garamond' and 'Manrope' from Google Fonts in index.css.",
+    "Ensure the hero background image is treated nicely (perhaps parallax with framer motion's useScroll).",
+    "Add data-testid attributes to CTAs.",
+    "DO NOT center text globally.",
+    "Use Tailwind arbitrary values for custom colors if not added to config."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this.",
+    "Do not make generic centered layouts. Create depth.",
+    "Every interaction needs micro-animations.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Never use AI assistant Emoji characters for icons.",
+    "Prioritize using pre-existing components from src/components/ui when applicable."
+  ]
+}
