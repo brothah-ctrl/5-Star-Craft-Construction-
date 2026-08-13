@@ -4,6 +4,7 @@ import { WHATSAPP_URL } from "@/pages/LandingPage";
 
 const links = [
     { label: "Work", href: "#work" },
+    { label: "Portfolio", href: "#portfolio" },
     { label: "Expertise", href: "#expertise" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },

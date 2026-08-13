@@ -20,24 +20,27 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Architects/specifiers looking for reliable high-end joinery partners
 
 ## Implemented (2026-08-13)
-- Kinetic hero: masked line-by-line serif headline reveal on load, arch-clipped parallax hero image, dual CTAs (dark walnut pill → WhatsApp; ghost pill → portfolio anchor)
+- Kinetic hero: masked line-by-line serif headline reveal on load, arch-clipped parallax hero image (real photo: Constantia kitchen handover with Clive), dual CTAs (dark walnut pill → WhatsApp; ghost pill → portfolio anchor)
 - Floating sticky CTA (call + WhatsApp pill) visible on scroll
 - Slow editorial marquee of the five disciplines
-- Workshop bento: recent project update (Riverside Residence oak panelling) with spotlight photography and hover zooms
-- Numbered manifesto chapters (01–05 disciplines) with hover micro-interactions, sticky intro column
+- Workshop bento: real project update (pale oak headboard wall with floating nightstands) + ebony floor revival photo, hover zooms
+- Portfolio gallery (id="portfolio", `Gallery.jsx`): 4 real projects in asymmetric grid with discipline chips, framer-motion lightbox (Esc/backdrop close), nav "Portfolio" link added
+- Draggable before/after restoration slider (id="restoration", `BeforeAfter.jsx`): floor-before vs floor-after, pointer-drag handle, clip-path reveal
+- Numbered manifesto chapters (01–05 disciplines) with hover micro-interactions, sticky intro column, real nightstand photo
 - Testimonial wall (6 sample quotes from homeowners + architects)
 - Dark walnut footer/contact section with WhatsApp + call CTAs, back-to-top
 - Lenis momentum scrolling with anchor support; framer-motion section reveals throughout
 - Page title/meta updated; all interactive elements have data-testids
+- Real user photos stored in `/app/frontend/public/photos/` (kitchen.jpg, headset-crop.jpg, bedside.jpg, floor-before.png, floor-after.png); headboard source had screenshot UI icons cropped off
 
 ## Status / Notes
-- Testimonials and workshop project update are SAMPLE/MOCKED content
-- Photos are stock stand-ins awaiting the user's real uploads (one-line swap in `IMAGES`)
+- Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
+- Before/after floor photos are two different rooms (user-supplied) — a matched same-angle pair would make the slider even stronger
 - No backend/database features; no auth
 
 ## Backlog
-- P0: Swap in Clive's real project photos when uploaded
-- P1: Real testimonials from past clients
-- P1: Full portfolio/gallery page or lightbox per project
+- P0: Real testimonials from past clients
+- P1: Matched before/after photo pair (same room, same angle) for the restoration slider
+- P1: More project photos as jobs complete — gallery is data-driven, easy to extend
 - P2: Quote-request form that saves enquiries + email notification
 - P2: Google Business / Instagram link, service-area map

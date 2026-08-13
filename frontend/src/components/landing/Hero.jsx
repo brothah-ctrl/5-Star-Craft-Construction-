@@ -97,14 +97,14 @@ export const Hero = () => {
                         <div className="overflow-hidden rounded-b-[2rem] rounded-t-[12rem] border border-[#E3D5CA]">
                             <motion.img
                                 src={IMAGES.hero}
-                                alt="Bespoke timber interior with pale oak panelling"
+                                alt="Clive on handover day in a freshly installed 5 Star kitchen"
                                 style={{ y: imgY }}
-                                className="aspect-[3/4] w-full scale-110 object-cover"
+                                className="aspect-[3/4] w-full scale-110 object-cover object-[62%_center]"
                                 data-testid="hero-image"
                             />
                         </div>
                         <div className="absolute -bottom-5 left-6 rounded-full border border-[#E3D5CA] bg-[#F9F8F6]/85 px-5 py-2.5 text-[11px] uppercase tracking-[0.22em] text-[#5C564E] backdrop-blur-xl">
-                            Pale oak · Private residence
+                            Constantia kitchen · Handover day
                         </div>
                     </motion.div>
                 </div>

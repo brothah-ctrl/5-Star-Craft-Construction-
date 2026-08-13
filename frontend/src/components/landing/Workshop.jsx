@@ -25,12 +25,12 @@ export const Workshop = () => (
                     <div className="group relative overflow-hidden rounded-[2rem] border border-[#E3D5CA]">
                         <img
                             src={IMAGES.workshop2}
-                            alt="Carpenter cutting timber in the 5 Star workshop"
+                            alt="Completed pale oak headboard wall with floating nightstands"
                             className="h-[380px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 md:h-[560px]"
                             data-testid="workshop-hero-image"
                         />
                         <div className="absolute bottom-6 left-6 rounded-full border border-white/30 bg-white/70 px-5 py-2.5 text-[11px] uppercase tracking-[0.22em] text-[#2D241E] backdrop-blur-xl">
-                            In progress · Joinery bench No. 2
+                            Completed · Headboard wall
                         </div>
                     </div>
                 </Reveal>
@@ -40,7 +40,7 @@ export const Workshop = () => (
                         <div className="group overflow-hidden rounded-[2rem] border border-[#E3D5CA]">
                             <img
                                 src={IMAGES.workshop1}
-                                alt="Handcrafted wooden table detail"
+                                alt="Freshly revived ebony-stained timber floor"
                                 className="h-56 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 data-testid="workshop-detail-image"
                             />
@@ -53,12 +53,12 @@ export const Workshop = () => (
                                     Latest update · July 2026
                                 </p>
                                 <h3 className="mt-4 font-serif text-2xl font-medium leading-snug text-[#2D241E]">
-                                    Full-height oak panelling, book-matched by hand
+                                    Pale oak headboard wall with floating nightstands
                                 </h3>
                                 <p className="mt-4 text-sm leading-relaxed text-[#5C564E]">
-                                    Week six on the Riverside Residence. Veneers are laid,
-                                    shadow gaps aligned, and the first coat of hard-wax oil
-                                    is curing overnight.
+                                    Just completed: a full-width headboard in pale oak with
+                                    floating nightstands either side — cables chased, brass
+                                    sconces aligned, everything true to the millimetre.
                                 </p>
                             </div>
                             <a

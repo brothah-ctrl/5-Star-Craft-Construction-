@@ -44,7 +44,7 @@ export const Expertise = () => (
                         <div className="group mt-10 overflow-hidden rounded-[1.75rem] border border-[#E3D5CA]">
                             <img
                                 src={IMAGES.cabinetry}
-                                alt="Custom modern cabinetry installed in a kitchen"
+                                alt="Custom lacquered nightstand with brass detailing by 5 Star"
                                 className="h-64 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 data-testid="expertise-image"
                             />
