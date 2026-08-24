@@ -10,12 +10,13 @@ export const Gallery = () => {
     const [active, setActive] = useState(null);
 
     const PROJECTS = [
-        { src: IMAGES.kitchen, title: "The Constantia Kitchen", tag: "Woodwork & Countertops" },
-        { src: IMAGES.wardrobe, title: "LED-lit Fitted Wardrobe", tag: "Joinery" },
-        { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Woodwork & Countertops" },
-        { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Joinery" },
-        { src: IMAGES.floorAfter, title: "Ebony Floor Revival", tag: "Home Renovations" },
-        { src: IMAGES.tiles, title: "Porcelain Floor Fitting", tag: "Painting & Tiling" },
+        { src: IMAGES.kitchen, title: "The Constantia Kitchen", tag: "Kitchen Units" },
+        { src: IMAGES.wardrobe, title: "LED-lit Fitted Wardrobe", tag: "Wardrobes" },
+        { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Bespoke Furniture" },
+        { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Custom Interiors" },
+        { src: IMAGES.floorAfter, title: "Ebony Floor Revival", tag: "Wooden Flooring" },
+        { src: IMAGES.tiles, title: "Porcelain Floor Fitting", tag: "Tiling" },
+        { src: IMAGES.floorTiles, title: "Polished Porcelain Living Floor", tag: "Tiling" },
     ].map((p, i) => ({ ...p, span: PROJECT_SPANS[i % PROJECT_SPANS.length] }));
 
     useEffect(() => {
@@ -53,7 +54,7 @@ export const Gallery = () => {
                                 <img
                                     src={p.src}
                                     loading="lazy"
-                                    alt={p.title}
+                                    alt={`${p.title} — ${p.tag} by 5 Star Craft & Construction, Knysna`}
                                     className="h-[300px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 md:h-[420px]"
                                 />
                                 <div className="absolute bottom-6 left-6 flex items-center gap-3 rounded-full border border-white/30 bg-white/70 px-5 py-2.5 backdrop-blur-xl">

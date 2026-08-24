@@ -5,13 +5,16 @@ import { IMAGES, WHATSAPP_URL, PHONE_URL, PHONE_DISPLAY } from "@/pages/LandingP
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const SERVICES = [
-    "Joinery",
-    "Home Renovations",
-    "Painting & Tiling",
-    "Plumbing",
-    "Roofing & Fencing",
-    "Woodwork & Countertops",
-    "Deck Repairs & Shadeports",
+    "Kitchen Units",
+    "Built-in Cabinets",
+    "Wardrobes",
+    "Coffee Tables & Furniture",
+    "Wooden Flooring",
+    "Shelving",
+    "General Carpentry",
+    "Tiling",
+    "Painting",
+    "Custom Interiors & Renovations",
     "Wendy Houses",
     "Something else",
 ];

@@ -1,13 +1,16 @@
 import Marquee from "react-fast-marquee";
 
 const ITEMS = [
-    "Joinery",
-    "Home Renovations",
-    "Painting & Tiling",
-    "Plumbing",
-    "Roofing & Fencing",
-    "Woodwork & Countertops",
-    "Deck Repairs & Shadeports",
+    "Kitchen Units",
+    "Built-in Cabinets",
+    "Wardrobes",
+    "Coffee Tables",
+    "Wooden Flooring",
+    "Shelving",
+    "General Carpentry",
+    "Tiling",
+    "Painting",
+    "Custom Interiors & Renovations",
 ];
 
 const StarGlyph = () => (

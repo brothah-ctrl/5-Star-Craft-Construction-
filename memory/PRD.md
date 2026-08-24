@@ -74,6 +74,14 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Footer "Owner sign-in" link removed (replaced by FAB); Wendy photos moved into IMAGES slots; "Wendy Houses" added to quote-form services
 - /api/auth/me no longer leaks password_hash; bcrypt added to requirements; EMERGENT_LLM_KEY + ADMIN_EMAIL + ADMIN_PASSWORD + APP_NAME added to backend/.env
 
+## Implemented (2026-08-24, batch 8 — Knysna SEO pivot + password change)
+- Services re-messaged to the client's official list: Kitchen units, Built-in cabinets, Wardrobes, Coffee tables, Wooden flooring, Shelving, General carpentry work, Tiling, Painting, Custom interior spaces & renovations — across Expertise (10 icon rows, new heading "Creating beautiful spaces, built around you."), marquee, quote-form dropdown, gallery tags, service-areas copy, footer
+- Brand message "Creating beautiful spaces, built around you." now in hero support copy + services heading + llms.txt + meta
+- SEO targets baked into title, description, keywords, OG/Twitter, JSON-LD (knowsAbout + OfferCatalog), image alts: carpentry services in Knysna, custom kitchens Knysna, built-in cupboards and wardrobes, bespoke furniture Garden Route, wooden flooring and shelving, tiling and painting services, home renovations Knysna, custom carpentry and construction
+- New uploads: crisp new star logo PNG → logo-circle.png regenerated; "after tiling" photo added as 7th portfolio piece (floorTiles slot, also in owner panel photo manager)
+- Owner password changed to Bossclive005 (old password verified rejected, new one verified working)
+- OPS NOTE: dev server caches public/index.html via webpack filesystem cache — if meta/HTML edits don't serve, `rm -rf /app/frontend/node_modules/.cache && sudo supervisorctl restart frontend`
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

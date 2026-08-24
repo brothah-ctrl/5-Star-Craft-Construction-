@@ -30,9 +30,9 @@ export const ServiceAreas = () => (
                         Rooted on the Garden Route, <span className="italic text-[#C9A227]">serving the Western Cape.</span>
                     </h2>
                     <p className="mt-6 max-w-lg text-base leading-relaxed text-[#F7F7F5]/70">
-                        From Knysna to Plettenberg Bay, George and beyond — our team comes to
-                        you. Same seven trades, same hand-finished standard, wherever on the
-                        Garden Route your project sits.
+                        Kitchen units, built-in cupboards, wardrobes, bespoke furniture, wooden
+                        flooring, tiling, painting and full renovations — from Knysna to
+                        Plettenberg Bay, George and beyond, our team comes to you.
                     </p>
                 </Reveal>
                 <Reveal delay={0.15}>

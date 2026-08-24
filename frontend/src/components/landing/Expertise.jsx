@@ -1,15 +1,18 @@
-import { ArrowUpRight, Hammer, Home, Paintbrush, Wrench, HardHat, Layers, Umbrella } from "lucide-react";
+import { ArrowUpRight, ChefHat, Layers, DoorOpen, Table, LayoutGrid, Library, Hammer, Square, Paintbrush, Home } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
 
 const DISCIPLINES = [
-    { icon: Hammer, title: "Joinery", desc: "Staircases, panelling, doors, wardrobes and bespoke fitments — measured twice, mitred once." },
-    { icon: Home, title: "Home Renovations", desc: "Full-room and whole-home transformations, managed from strip-out to final coat." },
-    { icon: Paintbrush, title: "Painting & Tiling", desc: "Crisp lines, level tiles and durable finishes for walls, floors and splashbacks." },
-    { icon: Wrench, title: "Plumbing", desc: "Repairs, reroutes and full installations for kitchens and bathrooms." },
-    { icon: HardHat, title: "Roofing & Fencing", desc: "Weather-tight roofing, timely repairs and secure, sharp-looking boundaries." },
-    { icon: Layers, title: "Woodwork & Countertops", desc: "Kitchens, counters and cabinetry in solid timber and stone-look finishes." },
-    { icon: Umbrella, title: "Deck Repairs & Shadeports", desc: "Decks revived board by board, and shade structures built for harsh sun." },
+    { icon: ChefHat, title: "Kitchen Units", desc: "Custom kitchens in Knysna — designed, built and fitted around the way you cook and live." },
+    { icon: Layers, title: "Built-in Cabinets", desc: "Built-in cupboards and storage that fit your walls to the millimetre." },
+    { icon: DoorOpen, title: "Wardrobes", desc: "Fitted wardrobes with shelving, lighting and finishes matched to your room." },
+    { icon: Table, title: "Coffee Tables", desc: "Bespoke coffee tables and furniture, handcrafted in solid timber." },
+    { icon: LayoutGrid, title: "Wooden Flooring", desc: "Wooden floors installed, sanded and sealed for a rich, lasting finish." },
+    { icon: Library, title: "Shelving", desc: "Floating shelves, bookcases and display shelving shaped to any space." },
+    { icon: Hammer, title: "General Carpentry", desc: "General carpentry work — repairs, fitments and finishing touches, no job too small." },
+    { icon: Square, title: "Tiling", desc: "Tiling services for floors, walls, kitchens and bathrooms — level and lasting." },
+    { icon: Paintbrush, title: "Painting", desc: "Interior and exterior painting with careful prep and crisp, clean lines." },
+    { icon: Home, title: "Interiors & Renovations", desc: "Custom interior spaces and home renovations in Knysna, managed start to finish." },
 ];
 
 export const Expertise = () => (
@@ -18,13 +21,13 @@ export const Expertise = () => (
             <div className="lg:col-span-4">
                 <div className="lg:sticky lg:top-32">
                     <Reveal>
-                        <Overline>The Disciplines</Overline>
+                        <Overline>Our Services</Overline>
                         <h2 className="mt-6 font-serif text-4xl font-medium leading-tight tracking-tight text-[#16233F] sm:text-5xl">
-                            Seven trades. <span className="italic text-[#B8912A]">One standard.</span>
+                            Creating beautiful spaces, <span className="italic text-[#B8912A]">built around you.</span>
                         </h2>
                         <p className="mt-6 max-w-sm text-base leading-relaxed text-[#55606E]">
-                            From a single repair to a full-home renovation, every job leaves
-                            site with the same hand-finished standard.
+                            From custom kitchens and built-in cupboards to wooden flooring,
+                            tiling and full renovations — one team, one hand-finished standard.
                         </p>
                     </Reveal>
                     <Reveal delay={0.2}>

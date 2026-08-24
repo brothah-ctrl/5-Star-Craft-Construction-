@@ -23,6 +23,7 @@ const PHOTO_SLOTS = [
     { key: "floorAfter", label: "Portfolio + Slider — Floor after" },
     { key: "floorBefore", label: "Slider — Floor before" },
     { key: "tiles", label: "Portfolio — Tiles" },
+    { key: "floorTiles", label: "Portfolio — Polished tiles" },
     { key: "hinge", label: "Quote section — photo" },
     { key: "wendy1", label: "Wendy specials — main" },
     { key: "wendy2", label: "Wendy specials — second" },

@@ -21,7 +21,7 @@ export const Hero = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <Overline>Joinery · Renovations · Construction</Overline>
+                        <Overline>Carpentry &amp; Construction · Knysna · Garden Route</Overline>
                     </motion.div>
 
                     <h1 className="mt-8 font-serif text-5xl font-medium leading-[1.02] tracking-tight text-[#16233F] sm:text-6xl lg:text-7xl" data-testid="hero-headline">
@@ -45,9 +45,9 @@ export const Hero = () => {
                         transition={{ duration: 0.9, delay: 1.15, ease: EASE }}
                     >
                         <p className="mt-8 max-w-md text-base leading-relaxed text-[#55606E] sm:text-lg">
-                            A crafts and construction team for homeowners and architects who
-                            value honest materials, precise workmanship, and finishes made
-                            to last generations.
+                            Creating beautiful spaces, built around you. Custom kitchens,
+                            built-in cupboards, bespoke furniture, wooden flooring, tiling,
+                            painting and renovations across Knysna and the Garden Route.
                         </p>
 
                         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -95,7 +95,7 @@ export const Hero = () => {
                         <div className="overflow-hidden rounded-b-[2rem] rounded-t-[12rem] border border-[#DEE2E8]">
                             <motion.img
                                 src={IMAGES.hero}
-                                alt="Clive on handover day in a freshly installed 5 Star kitchen"
+                                alt="Custom kitchen units installed by 5 Star Craft & Construction — carpentry services in Knysna"
                                 style={{ y: imgY }}
                                 fetchPriority="high"
                                 className="aspect-[3/4] w-full scale-110 object-cover object-[62%_center]"

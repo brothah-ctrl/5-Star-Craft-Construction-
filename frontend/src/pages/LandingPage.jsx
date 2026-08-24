@@ -28,6 +28,7 @@ export const IMAGES = {
     wardrobe: "/photos/wardrobe.jpg",
     wardrobeProgress: "/photos/wardrobe-progress.jpg",
     tiles: "/photos/tiles.jpg",
+    floorTiles: "/photos/floor-tiles.jpg",
     hinge: "/photos/hinge.jpg",
     wendy1: "/photos/wendy-1.jpg",
     wendy2: "/photos/wendy-2.jpg",
