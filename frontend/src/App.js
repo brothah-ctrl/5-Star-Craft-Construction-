@@ -1,7 +1,23 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "@/App.css";
 import LandingPage from "@/pages/LandingPage";
+import AuthCallback from "@/pages/AuthCallback";
+import AdminPage from "@/pages/AdminPage";
+
+function AppRouter() {
+    const location = useLocation();
+    if (location.hash?.includes("session_id=")) {
+        return <AuthCallback />;
+    }
+    return (
+        <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+    );
+}
 
 function App() {
     useEffect(() => {
@@ -20,7 +36,9 @@ function App() {
 
     return (
         <div className="App">
-            <LandingPage />
+            <BrowserRouter>
+                <AppRouter />
+            </BrowserRouter>
         </div>
     );
 }

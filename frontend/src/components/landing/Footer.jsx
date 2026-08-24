@@ -65,13 +65,22 @@ export const Footer = () => (
 
             <div className="mt-16 flex items-center justify-between text-xs text-[#F7F7F5]/50">
                 <p>© 2026 5 Star — Crafts &amp; Construction. All rights reserved.</p>
-                <a
-                    href="#top"
-                    data-testid="footer-back-to-top"
-                    className="flex items-center gap-2 transition-colors duration-300 hover:text-[#F7F7F5]"
-                >
-                    Back to top <ArrowUp className="h-3.5 w-3.5" />
-                </a>
+                <div className="flex items-center gap-6">
+                    <a
+                        href="/admin"
+                        data-testid="footer-admin-link"
+                        className="transition-colors duration-300 hover:text-[#F7F7F5]"
+                    >
+                        Owner sign-in
+                    </a>
+                    <a
+                        href="#top"
+                        data-testid="footer-back-to-top"
+                        className="flex items-center gap-2 transition-colors duration-300 hover:text-[#F7F7F5]"
+                    >
+                        Back to top <ArrowUp className="h-3.5 w-3.5" />
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

@@ -23,13 +23,21 @@ export const Nav = () => {
             className="mx-auto flex max-w-[1400px] items-center justify-between rounded-full border border-[#DEE2E8] bg-[#F7F7F5]/80 py-3 pl-5 pr-3 backdrop-blur-xl"
             data-testid="main-nav"
         >
-            <a href="#top" className="flex items-center" data-testid="nav-brand">
+            <a href="#top" className="flex items-center gap-3" data-testid="nav-brand">
                 <img
                     src="/photos/logo-circle.png"
                     alt="5 Star Crafts and Construction logo"
                     className="h-10 w-10 rounded-full object-cover shadow-md sm:h-11 sm:w-11"
                     data-testid="nav-logo"
                 />
+                <span className="leading-tight">
+                    <span className="block font-serif text-lg font-semibold tracking-tight text-[#16233F]">
+                        5 Star
+                    </span>
+                    <span className="block text-[9px] uppercase tracking-[0.3em] text-[#55606E]">
+                        Craft &amp; Construction
+                    </span>
+                </span>
             </a>
 
             <div className="hidden items-center gap-9 md:flex">

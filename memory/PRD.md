@@ -59,6 +59,14 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Josefin Sans added to font stack (index.css import, index.html link, tailwind `font-josefin`)
 - Verified at desktop (1920), tablet (834) and mobile (430) — layouts stack correctly, images keep aspect (object-cover), no distortion
 
+## Implemented (2026-08-24, batch 6 — inbox + Google sign-in)
+- OWNER_EMAIL set to clivemudzengi57@gmail.com — enquiry emails now land in Clive's real Gmail (verified email_sent:true)
+- IMPORTANT: both .env files were wiped by an environment restart and were recreated (backend: MONGO_URL, DB_NAME, CORS_ORIGINS, EMERGENT_EMAIL_KEY, EMAIL_FROM_NAME, OWNER_EMAIL, ADMIN_EMAILS; frontend: REACT_APP_BACKEND_URL, WDS_SOCKET_PORT)
+- Emergent-managed Google sign-in: /api/auth/session (exchange), /api/auth/me, /api/auth/logout, sessions in db.user_sessions (7-day expiry, httpOnly cookie, samesite none)
+- Admin page at /admin (AdminPage.jsx + AuthCallback.jsx): Google sign-in button, whitelist via ADMIN_EMAILS, enquiry list newest-first, sign out; "Owner sign-in" link in site footer
+- Navbar: company name restored beside logo — "5 Star" / "Craft & Construction"
+- Test session per /app/auth_testing.md; credentials in /app/memory/test_credentials.md
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
@@ -67,9 +75,9 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - No auth
 
 ## Backlog
-- P0: Replace OWNER_EMAIL with Clive's real email address (one env change + backend restart)
 - P0: Real testimonials from past clients
+- P0: Real Google Business Profile URL (GOOGLE_BUSINESS_URL constant in LandingPage.jsx is a search placeholder)
 - P1: Upload phone-shot workshop video clips → convert Ken Burns slots to autoplay muted loops
 - P1: Matched before/after photo pair (same room, same angle) for the restoration slider
-- P2: Google Business / Instagram link, service-area map
-- P2: Admin view for saved enquiries (requires auth)
+- P2: Town landing pages (Joinery in Knysna etc.) for local SEO
+- P2: Admin page extras — mark enquiry replied/archived, email reply shortcut
