@@ -53,6 +53,12 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Local SEO: meta description/keywords now target Knysna/George/Plettenberg Bay/Garden Route; JSON-LD areaServed lists 6 Western Cape cities; llms.txt gained Service Areas block
 - Note: public/index.html changes require `sudo supervisorctl restart frontend` to be served by the dev server
 
+## Implemented (2026-08-21, batch 5 — logo + Wendy specials)
+- Header logo replaced with the client's uploaded mark (`/photos/logo-circle.png`): gold star in navy circle, cropped clean from the square upload, no text/tagline, alt "5 Star Crafts and Construction logo", used as favicon + apple-touch-icon too
+- Wendy House Specials subsection inside the "Inside the studio" section (`WendySpecials.jsx`): "NEW EXCLUSIVE SPECIALS" heading, client's exact copy, 4 uploaded Wendy photos in a responsive feature gallery (main + two stacked + full-width), cream #F7F4ED card with gold #D9A441 borders/shadows, Josefin Sans, "View Wendy Houses" button → #quote
+- Josefin Sans added to font stack (index.css import, index.html link, tailwind `font-josefin`)
+- Verified at desktop (1920), tablet (834) and mobile (430) — layouts stack correctly, images keep aspect (object-cover), no distortion
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

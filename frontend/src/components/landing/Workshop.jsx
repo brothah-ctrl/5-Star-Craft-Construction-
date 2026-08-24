@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
+import { WendySpecials } from "@/components/landing/WendySpecials";
 
 export const Workshop = () => (
     <section id="work" className="px-6 py-28 lg:px-12 lg:py-40" data-testid="workshop-section">
@@ -78,6 +79,8 @@ export const Workshop = () => (
                     </Reveal>
                 </div>
             </div>
+
+            <WendySpecials />
         </div>
     </section>
 );

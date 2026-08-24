@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Menu, X } from "lucide-react";
-
+import { Menu, X } from "lucide-react";
 const links = [
     { label: "Work", href: "#work" },
     { label: "Portfolio", href: "#portfolio" },
@@ -24,18 +23,13 @@ export const Nav = () => {
             className="mx-auto flex max-w-[1400px] items-center justify-between rounded-full border border-[#DEE2E8] bg-[#F7F7F5]/80 py-3 pl-5 pr-3 backdrop-blur-xl"
             data-testid="main-nav"
         >
-            <a href="#top" className="flex items-center gap-3" data-testid="nav-brand">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#16233F]">
-                    <Star className="h-4 w-4 fill-[#C9A227] text-[#C9A227]" />
-                </span>
-                <span className="leading-tight">
-                    <span className="block font-serif text-lg font-semibold tracking-tight text-[#16233F]">
-                        5 Star
-                    </span>
-                    <span className="block text-[9px] uppercase tracking-[0.3em] text-[#55606E]">
-                        Crafts &amp; Construction
-                    </span>
-                </span>
+            <a href="#top" className="flex items-center" data-testid="nav-brand">
+                <img
+                    src="/photos/logo-circle.png"
+                    alt="5 Star Crafts and Construction logo"
+                    className="h-10 w-10 rounded-full object-cover shadow-md sm:h-11 sm:w-11"
+                    data-testid="nav-logo"
+                />
             </a>
 
             <div className="hidden items-center gap-9 md:flex">

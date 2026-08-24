@@ -15,6 +15,7 @@ module.exports = {
       fontFamily: {
         serif: ['Fraunces', 'serif'],
         sans: ['Manrope', 'sans-serif'],
+        josefin: ['"Josefin Sans"', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
