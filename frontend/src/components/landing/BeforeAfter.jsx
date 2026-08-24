@@ -26,8 +26,8 @@ export const BeforeAfter = () => {
                     </Reveal>
                     <Reveal delay={0.15} className="lg:col-span-5">
                         <p className="max-w-md text-base leading-relaxed text-[#55606E] lg:ml-auto">
-                            The Ebony Floor Revival — worn boards sanded back, stained deep
-                            and sealed to a lasting sheen. Slide the handle to compare.
+                            From dark, dated boards to a polished porcelain finish — slide the
+                            handle to compare this Knysna floor transformation.
                         </p>
                     </Reveal>
                 </div>
@@ -47,8 +47,8 @@ export const BeforeAfter = () => {
                         onPointerCancel={() => (dragging.current = false)}
                     >
                         <img
-                            src={IMAGES.floorAfter}
-                            alt="Floor after restoration — rich even ebony finish"
+                            src={IMAGES.floorTiles}
+                            alt="Floor after renovation — polished porcelain tiles by 5 Star Craft & Construction"
                             loading="lazy"
                             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                             draggable={false}
@@ -58,8 +58,8 @@ export const BeforeAfter = () => {
                             style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
                         >
                             <img
-                                src={IMAGES.floorBefore}
-                                alt="Floor before restoration — worn and patchy"
+                                src={IMAGES.floorAfter}
+                                alt="Floor before renovation — dark worn boards"
                                 loading="lazy"
                                 className="absolute inset-0 h-full w-full object-cover"
                                 draggable={false}

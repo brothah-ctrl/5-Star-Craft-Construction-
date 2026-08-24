@@ -31,12 +31,12 @@ export const Expertise = () => (
                         </p>
                     </Reveal>
                     <Reveal delay={0.2}>
-                        <div className="group mt-10 overflow-hidden rounded-[1.75rem] border border-[#DEE2E8]">
+                        <div className="group mt-10 overflow-hidden rounded-[1.75rem] border border-[#DEE2E8] bg-[#F7F4ED] p-4">
                             <img
                                 src={IMAGES.cabinetry}
-                                alt="Custom lacquered nightstand with brass detailing by 5 Star"
+                                alt="Custom built-in cabinet with brass detailing by 5 Star Craft & Construction, Knysna"
                                 loading="lazy"
-                                className="h-64 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                className="h-80 w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                                 data-testid="expertise-image"
                             />
                         </div>
