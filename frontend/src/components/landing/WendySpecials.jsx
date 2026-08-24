@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/landing/Reveal";
+import { IMAGES } from "@/pages/LandingPage";
 
 const wrapCls =
     "group overflow-hidden rounded-[1.5rem] border border-[#D9A441]/35 shadow-[0_18px_45px_-24px_rgba(22,35,63,0.35)]";
@@ -44,7 +45,7 @@ export const WendySpecials = () => (
                     <Reveal delay={0.1} className="md:col-span-7">
                         <div className={wrapCls}>
                             <img
-                                src="/photos/wendy-1.jpg"
+                                src={IMAGES.wendy1}
                                 alt="Custom-built elevated Wendy house with timber cladding, windows and entrance stairs"
                                 loading="lazy"
                                 className={`${imgCls} h-64 md:h-[460px]`}
@@ -56,7 +57,7 @@ export const WendySpecials = () => (
                         <Reveal delay={0.18}>
                             <div className={wrapCls}>
                                 <img
-                                    src="/photos/wendy-2.jpg"
+                                    src={IMAGES.wendy2}
                                     alt="Wendy house timber wall frames under construction on site"
                                     loading="lazy"
                                     className={`${imgCls} h-48 md:h-[220px]`}
@@ -67,7 +68,7 @@ export const WendySpecials = () => (
                         <Reveal delay={0.26}>
                             <div className={wrapCls}>
                                 <img
-                                    src="/photos/wendy-3.jpg"
+                                    src={IMAGES.wendy3}
                                     alt="Finished Wendy house in rich stained timber with window and open doorway"
                                     loading="lazy"
                                     className={`${imgCls} h-48 md:h-[220px]`}
@@ -79,7 +80,7 @@ export const WendySpecials = () => (
                     <Reveal delay={0.34} className="md:col-span-12">
                         <div className={wrapCls}>
                             <img
-                                src="/photos/wendy-4.jpg"
+                                src={IMAGES.wendy4}
                                 alt="Handcrafted Wendy house exterior showing detailed timber workmanship"
                                 loading="lazy"
                                 className={`${imgCls} h-56 md:h-72`}

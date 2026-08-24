@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Request, Response
+from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Form, File, UploadFile
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -11,6 +11,7 @@ import uuid
 import re
 import ipaddress
 import httpx
+import bcrypt
 from html import escape
 from html.parser import HTMLParser
 from urllib.parse import urlparse
@@ -224,6 +225,7 @@ async def get_current_user(request: Request) -> dict:
     user_doc = await db.users.find_one({"user_id": session_doc["user_id"]}, {"_id": 0})
     if not user_doc:
         raise HTTPException(status_code=401, detail="User not found")
+    user_doc.pop("password_hash", None)
     return user_doc
 
 @api_router.post("/auth/session")
@@ -282,6 +284,177 @@ async def admin_enquiries(request: Request):
     if user.get("email", "").lower() not in ADMIN_EMAILS:
         raise HTTPException(status_code=403, detail="This Google account is not an approved admin")
     return await db.enquiries.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
+
+# --- Owner password login + site image storage + settings ---
+STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"
+STORAGE_URL = STORAGE_BASE.rstrip("/") + "/objstore/api/v1/storage"
+STORAGE_EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY")
+APP_NAME = os.environ.get("APP_NAME")
+storage_key = None
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+def verify_password(plain: str, hashed: str) -> bool:
+    try:
+        return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+    except ValueError:
+        return False
+
+async def init_storage(force: bool = False):
+    global storage_key
+    if storage_key and not force:
+        return storage_key
+    async with httpx.AsyncClient(timeout=30) as http:
+        resp = await http.post(f"{STORAGE_URL}/init", json={"emergent_key": STORAGE_EMERGENT_KEY})
+    resp.raise_for_status()
+    storage_key = resp.json()["storage_key"]
+    return storage_key
+
+async def put_object(path: str, data: bytes, content_type: str) -> dict:
+    key = await init_storage()
+    async with httpx.AsyncClient(timeout=120) as http:
+        resp = await http.put(
+            f"{STORAGE_URL}/objects/{path}",
+            headers={"X-Storage-Key": key, "Content-Type": content_type},
+            content=data,
+        )
+    resp.raise_for_status()
+    return resp.json()
+
+async def get_object(path: str):
+    key = await init_storage()
+    async with httpx.AsyncClient(timeout=60) as http:
+        resp = await http.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key})
+    resp.raise_for_status()
+    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
+
+async def require_admin(request: Request) -> dict:
+    user = await get_current_user(request)
+    if user.get("email", "").lower() not in ADMIN_EMAILS:
+        raise HTTPException(status_code=403, detail="This account is not an approved admin")
+    return user
+
+class PasswordLogin(BaseModel):
+    password: str = Field(min_length=1, max_length=200)
+
+@api_router.post("/auth/login")
+async def password_login(input: PasswordLogin, request: Request, response: Response):
+    admin_email = (os.environ.get("ADMIN_EMAIL") or "").lower()
+    ip = request.client.host if request.client else "unknown"
+    identifier = f"{ip}:owner"
+    attempts = await db.login_attempts.find_one({"identifier": identifier}, {"_id": 0})
+    if attempts and attempts.get("count", 0) >= 5:
+        locked_until = attempts.get("locked_until")
+        if isinstance(locked_until, str):
+            locked_until = datetime.fromisoformat(locked_until)
+        if locked_until:
+            if locked_until.tzinfo is None:
+                locked_until = locked_until.replace(tzinfo=timezone.utc)
+            if locked_until > datetime.now(timezone.utc):
+                raise HTTPException(status_code=429, detail="Too many attempts — try again in 15 minutes")
+    user = await db.users.find_one({"email": admin_email}, {"_id": 0})
+    if not user or not verify_password(input.password, user.get("password_hash", "")):
+        await db.login_attempts.update_one(
+            {"identifier": identifier},
+            {
+                "$inc": {"count": 1},
+                "$set": {"locked_until": (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat()},
+            },
+            upsert=True,
+        )
+        raise HTTPException(status_code=401, detail="Incorrect password")
+    await db.login_attempts.delete_many({"identifier": identifier})
+    token = f"sess_{uuid.uuid4().hex}{uuid.uuid4().hex}"
+    await db.user_sessions.insert_one({
+        "user_id": user["user_id"],
+        "session_token": token,
+        "expires_at": datetime.now(timezone.utc) + timedelta(days=7),
+        "created_at": datetime.now(timezone.utc),
+    })
+    response.set_cookie("session_token", token, httponly=True, secure=True, samesite="none", path="/", max_age=7 * 24 * 3600)
+    return {"user_id": user["user_id"], "email": user["email"], "name": user.get("name"), "picture": user.get("picture")}
+
+ALLOWED_IMAGE_TYPES = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp"}
+
+@api_router.post("/admin/images")
+async def upload_site_image(request: Request, slot: str = Form(...), file: UploadFile = File(...)):
+    await require_admin(request)
+    if file.content_type not in ALLOWED_IMAGE_TYPES:
+        raise HTTPException(status_code=400, detail="Only JPG, PNG or WebP images")
+    data = await file.read()
+    if len(data) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Image must be under 10MB")
+    path = f"{APP_NAME}/site/{slot}.{ALLOWED_IMAGE_TYPES[file.content_type]}"
+    result = await put_object(path, data, file.content_type)
+    await db.site_images.update_one(
+        {"slot": slot},
+        {"$set": {"slot": slot, "storage_path": result["path"], "content_type": file.content_type,
+                  "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+    return {"slot": slot, "url": f"/api/files/{result['path']}"}
+
+@api_router.get("/images")
+async def public_images():
+    docs = await db.site_images.find({}, {"_id": 0}).to_list(100)
+    return {d["slot"]: f"/api/files/{d['storage_path']}" for d in docs}
+
+@api_router.get("/files/{path:path}")
+async def serve_site_file(path: str):
+    record = await db.site_images.find_one({"storage_path": path}, {"_id": 0})
+    if not record:
+        raise HTTPException(status_code=404, detail="File not found")
+    data, content_type = await get_object(path)
+    return Response(
+        content=data,
+        media_type=record.get("content_type", content_type),
+        headers={"Cache-Control": "public, max-age=300"},
+    )
+
+class SiteSettings(BaseModel):
+    google_business_url: str = Field(default="", max_length=500)
+
+@api_router.get("/settings")
+async def get_settings():
+    doc = await db.settings.find_one({"key": "site"}, {"_id": 0})
+    return {"google_business_url": (doc or {}).get("google_business_url", "")}
+
+@api_router.post("/admin/settings")
+async def save_settings(input: SiteSettings, request: Request):
+    await require_admin(request)
+    url = input.google_business_url.strip()
+    if url and not url.startswith("https://"):
+        raise HTTPException(status_code=400, detail="Link must start with https://")
+    await db.settings.update_one({"key": "site"}, {"$set": {"key": "site", "google_business_url": url}}, upsert=True)
+    return {"google_business_url": url}
+
+@app.on_event("startup")
+async def startup_tasks():
+    try:
+        await init_storage()
+        logger.info("Object storage initialized")
+    except Exception:
+        logger.error("Storage init failed", exc_info=True)
+    try:
+        await db.login_attempts.create_index("identifier")
+        admin_email = (os.environ.get("ADMIN_EMAIL") or "").lower()
+        admin_password = os.environ.get("ADMIN_PASSWORD")
+        if admin_email and admin_password:
+            existing = await db.users.find_one({"email": admin_email})
+            if not existing:
+                await db.users.insert_one({
+                    "user_id": f"user_{uuid.uuid4().hex[:12]}",
+                    "email": admin_email,
+                    "name": "Clive",
+                    "role": "admin",
+                    "password_hash": hash_password(admin_password),
+                    "created_at": datetime.now(timezone.utc),
+                })
+            elif not verify_password(admin_password, existing.get("password_hash", "")):
+                await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
+    except Exception:
+        logger.error("Admin seed failed", exc_info=True)
 
 # Include the router in the main app
 app.include_router(api_router)

@@ -12,6 +12,7 @@ const SERVICES = [
     "Roofing & Fencing",
     "Woodwork & Countertops",
     "Deck Repairs & Shadeports",
+    "Wendy Houses",
     "Something else",
 ];
 

@@ -67,6 +67,13 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Navbar: company name restored beside logo — "5 Star" / "Craft & Construction"
 - Test session per /app/auth_testing.md; credentials in /app/memory/test_credentials.md
 
+## Implemented (2026-08-24, batch 7 — owner panel + photo manager + GBP-ready)
+- Owner login is now a discreet floating lock button (bottom-left, blends in) opening a password modal; password auth via bcrypt hash in DB (seeded from ADMIN_PASSWORD env, re-seeds on restart), brute-force lockout (5 attempts / 15 min), session cookie reuses user_sessions infra
+- Owner panel (/admin) reworked with tabs: Enquiries, Photos, Settings. Photos tab: 16 clearly-labelled image slots (hero, studio, portfolio, slider, wendy, quote) with thumbnails + big mobile-friendly "Change photo" buttons → uploads to Emergent object storage (5star-crafts/site/{slot}), overrides stored in db.site_images, landing page merges overrides on load via GET /api/images; files served via GET /api/files/{path}
+- Settings tab: Google Business Profile URL field saved to db.settings; landing "Find us on Google" button reads it live via GET /api/settings (falls back to search placeholder until set)
+- Footer "Owner sign-in" link removed (replaced by FAB); Wendy photos moved into IMAGES slots; "Wendy Houses" added to quote-form services
+- /api/auth/me no longer leaks password_hash; bcrypt added to requirements; EMERGENT_LLM_KEY + ADMIN_EMAIL + ADMIN_PASSWORD + APP_NAME added to backend/.env
+
 ## Status / Notes
 - Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

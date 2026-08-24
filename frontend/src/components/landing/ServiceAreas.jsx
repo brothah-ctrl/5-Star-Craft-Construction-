@@ -1,6 +1,6 @@
 import { MapPin, Star, ArrowUpRight, MessageCircle } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
-import { GOOGLE_BUSINESS_URL, WHATSAPP_URL } from "@/pages/LandingPage";
+import { SITE, WHATSAPP_URL } from "@/pages/LandingPage";
 
 const AREAS = [
     "Knysna",
@@ -64,7 +64,7 @@ export const ServiceAreas = () => (
                     </p>
                     <div className="mt-8 flex flex-wrap gap-3">
                         <a
-                            href={GOOGLE_BUSINESS_URL}
+                            href={SITE.googleBusinessUrl}
                             target="_blank"
                             rel="noreferrer"
                             data-testid="google-listing-button"

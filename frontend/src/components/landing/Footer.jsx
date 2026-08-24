@@ -67,13 +67,6 @@ export const Footer = () => (
                 <p>© 2026 5 Star — Crafts &amp; Construction. All rights reserved.</p>
                 <div className="flex items-center gap-6">
                     <a
-                        href="/admin"
-                        data-testid="footer-admin-link"
-                        className="transition-colors duration-300 hover:text-[#F7F7F5]"
-                    >
-                        Owner sign-in
-                    </a>
-                    <a
                         href="#top"
                         data-testid="footer-back-to-top"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-[#F7F7F5]"

@@ -1,8 +1,34 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { LogIn, LogOut, ArrowLeft, Inbox } from "lucide-react";
+import { Lock, LogOut, ArrowLeft, Inbox, Upload, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import { IMAGES } from "@/pages/LandingPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+const TABS = [
+    { id: "enquiries", label: "Enquiries" },
+    { id: "photos", label: "Photos" },
+    { id: "settings", label: "Settings" },
+];
+
+const PHOTO_SLOTS = [
+    { key: "hero", label: "Hero photo — top of page" },
+    { key: "workshop2", label: "Studio update — large photo" },
+    { key: "workshop1", label: "Studio update — small photo" },
+    { key: "cabinetry", label: "Expertise — side photo" },
+    { key: "kitchen", label: "Portfolio — Kitchen" },
+    { key: "wardrobe", label: "Portfolio — Wardrobe" },
+    { key: "bedside", label: "Portfolio — Nightstand" },
+    { key: "headboard", label: "Portfolio — Headboard wall" },
+    { key: "floorAfter", label: "Portfolio + Slider — Floor after" },
+    { key: "floorBefore", label: "Slider — Floor before" },
+    { key: "tiles", label: "Portfolio — Tiles" },
+    { key: "hinge", label: "Quote section — photo" },
+    { key: "wendy1", label: "Wendy specials — main" },
+    { key: "wendy2", label: "Wendy specials — second" },
+    { key: "wendy3", label: "Wendy specials — third" },
+    { key: "wendy4", label: "Wendy specials — fourth" },
+];
 
 export default function AdminPage() {
     const location = useLocation();
@@ -10,6 +36,17 @@ export default function AdminPage() {
     const [user, setUser] = useState(location.state?.user || null);
     const [enquiries, setEnquiries] = useState([]);
     const [forbidden, setForbidden] = useState(false);
+    const [tab, setTab] = useState("enquiries");
+    const [photos, setPhotos] = useState({});
+    const [uploading, setUploading] = useState(null);
+    const [photoError, setPhotoError] = useState("");
+    const [gbp, setGbp] = useState("");
+    const [gbpSaved, setGbpSaved] = useState(false);
+    const [gbpError, setGbpError] = useState("");
+    const [password, setPassword] = useState("");
+    const [show, setShow] = useState(false);
+    const [loginError, setLoginError] = useState("");
+    const [busy, setBusy] = useState(false);
 
     useEffect(() => {
         if (location.state?.user) return;
@@ -35,6 +72,8 @@ export default function AdminPage() {
                 return;
             }
             if (res.ok) setEnquiries(await res.json());
+            const s = await fetch(`${API}/settings`);
+            if (s.ok) setGbp((await s.json()).google_business_url || "");
         })();
     }, [auth]);
 
@@ -45,10 +84,59 @@ export default function AdminPage() {
         setEnquiries([]);
     };
 
-    const signIn = () => {
-        // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
-        const redirectUrl = window.location.origin + "/admin";
-        window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+    const login = async (e) => {
+        e.preventDefault();
+        setBusy(true);
+        setLoginError("");
+        try {
+            const res = await fetch(`${API}/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ password }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Sign-in failed");
+            setUser(data);
+            setAuth(true);
+        } catch (err) {
+            setLoginError(err.message);
+        }
+        setBusy(false);
+    };
+
+    const uploadPhoto = async (slot, file) => {
+        if (!file) return;
+        setUploading(slot);
+        setPhotoError("");
+        try {
+            const fd = new FormData();
+            fd.append("slot", slot);
+            fd.append("file", file);
+            const res = await fetch(`${API}/admin/images`, { method: "POST", credentials: "include", body: fd });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Upload failed");
+            IMAGES[slot] = data.url;
+            setPhotos((p) => ({ ...p, [slot]: data.url }));
+        } catch (err) {
+            setPhotoError(err.message);
+        }
+        setUploading(null);
+    };
+
+    const saveGbp = async (e) => {
+        e.preventDefault();
+        setGbpSaved(false);
+        setGbpError("");
+        const res = await fetch(`${API}/admin/settings`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ google_business_url: gbp }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) setGbpSaved(true);
+        else setGbpError(typeof data.detail === "string" ? data.detail : "Save failed");
     };
 
     return (
@@ -57,7 +145,7 @@ export default function AdminPage() {
                 <div className="mx-auto flex max-w-[1200px] items-center justify-between">
                     <Link to="/" className="flex items-center gap-3" data-testid="admin-home-link">
                         <img src="/photos/logo-circle.png" alt="5 Star Crafts and Construction logo" className="h-9 w-9 rounded-full object-cover" />
-                        <span className="font-serif text-lg font-semibold">Enquiries</span>
+                        <span className="font-serif text-lg font-semibold">Owner panel</span>
                     </Link>
                     {auth && user && (
                         <div className="flex items-center gap-4">
@@ -84,16 +172,39 @@ export default function AdminPage() {
                         <img src="/photos/logo-circle.png" alt="5 Star Crafts and Construction logo" className="mx-auto h-14 w-14 rounded-full object-cover" />
                         <h1 className="mt-6 font-serif text-3xl font-medium">Owner sign-in</h1>
                         <p className="mt-3 text-sm leading-relaxed text-[#55606E]">
-                            Sign in with the approved Google account to view project enquiries
-                            sent through the website.
+                            Enter the owner password to manage enquiries, photos and settings.
                         </p>
-                        <button
-                            onClick={signIn}
-                            data-testid="admin-signin-button"
-                            className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-[#16233F] px-8 py-4 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5"
-                        >
-                            <LogIn className="h-4 w-4" /> Sign in with Google
-                        </button>
+                        <form onSubmit={login} className="mt-8 text-left">
+                            <div className="relative">
+                                <input
+                                    type={show ? "text" : "password"}
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                    className="w-full rounded-xl border border-[#DEE2E8] bg-white px-4 py-3.5 pr-12 text-base outline-none transition-colors focus:border-[#B8912A]"
+                                    data-testid="admin-password-input"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShow(!show)}
+                                    aria-label={show ? "Hide password" : "Show password"}
+                                    data-testid="admin-password-toggle"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#55606E]"
+                                >
+                                    {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                            {loginError && <p className="mt-3 text-sm text-red-700" data-testid="admin-login-error">{loginError}</p>}
+                            <button
+                                type="submit"
+                                disabled={busy}
+                                data-testid="admin-login-submit"
+                                className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#16233F] text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
+                            >
+                                <Lock className="h-4 w-4" /> {busy ? "Signing in…" : "Sign in"}
+                            </button>
+                        </form>
                         <Link to="/" className="mt-6 inline-flex items-center gap-2 text-sm text-[#55606E] hover:text-[#16233F]" data-testid="admin-back-link">
                             <ArrowLeft className="h-3.5 w-3.5" /> Back to the site
                         </Link>
@@ -112,10 +223,25 @@ export default function AdminPage() {
 
                 {auth === true && !forbidden && (
                     <div data-testid="admin-enquiries">
-                        <h1 className="font-serif text-4xl font-medium tracking-tight">
-                            Project enquiries
-                        </h1>
-                        <p className="mt-2 text-sm text-[#55606E]">
+                        <h1 className="font-serif text-4xl font-medium tracking-tight">Owner panel</h1>
+                        <div className="mt-8 flex flex-wrap gap-2" data-testid="admin-tabs">
+                            {TABS.map((t) => (
+                                <button
+                                    key={t.id}
+                                    onClick={() => setTab(t.id)}
+                                    data-testid={`admin-tab-${t.id}`}
+                                    className={`rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 ${
+                                        tab === t.id ? "bg-[#16233F] text-[#F7F7F5]" : "border border-[#DEE2E8] text-[#55606E] hover:border-[#16233F]"
+                                    }`}
+                                >
+                                    {t.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {tab === "enquiries" && (
+                        <div className="mt-10">
+                        <p className="text-sm text-[#55606E]">
                             {enquiries.length} enquir{enquiries.length === 1 ? "y" : "ies"} received — newest first.
                         </p>
                         {enquiries.length === 0 ? (
@@ -139,6 +265,82 @@ export default function AdminPage() {
                                     </li>
                                 ))}
                             </ul>
+                        )}
+                        </div>
+                        )}
+
+                        {tab === "photos" && (
+                            <div className="mt-10" data-testid="admin-photos">
+                                <p className="max-w-xl text-sm leading-relaxed text-[#55606E]">
+                                    Tap <strong>Change photo</strong> on any slot to replace that picture on
+                                    the live site. JPG, PNG or WebP, up to 10MB — updates instantly.
+                                </p>
+                                {photoError && <p className="mt-4 text-sm text-red-700" data-testid="photo-error">{photoError}</p>}
+                                <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                                    {PHOTO_SLOTS.map((slot) => (
+                                        <div key={slot.key} className="rounded-[1.5rem] border border-[#DEE2E8] bg-white/60 p-4" data-testid={`photo-card-${slot.key}`}>
+                                            <div className="overflow-hidden rounded-xl border border-[#DEE2E8]">
+                                                <img
+                                                    src={photos[slot.key] || IMAGES[slot.key]}
+                                                    alt={slot.label}
+                                                    loading="lazy"
+                                                    className="h-40 w-full object-cover"
+                                                />
+                                            </div>
+                                            <p className="mt-3 text-sm font-medium">{slot.label}</p>
+                                            <label
+                                                className="mt-3 flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#16233F] text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5"
+                                                data-testid={`photo-button-${slot.key}`}
+                                            >
+                                                <Upload className="h-4 w-4" />
+                                                {uploading === slot.key ? "Uploading…" : "Change photo"}
+                                                <input
+                                                    type="file"
+                                                    accept="image/jpeg,image/png,image/webp"
+                                                    className="hidden"
+                                                    data-testid={`photo-input-${slot.key}`}
+                                                    onChange={(e) => uploadPhoto(slot.key, e.target.files[0])}
+                                                />
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {tab === "settings" && (
+                            <div className="mt-10 max-w-xl" data-testid="admin-settings">
+                                <div className="rounded-[1.5rem] border border-[#DEE2E8] bg-white/60 p-7">
+                                    <h2 className="font-serif text-2xl font-medium">Google Business Profile</h2>
+                                    <p className="mt-2 text-sm leading-relaxed text-[#55606E]">
+                                        Paste your Google Business Profile link here when it's ready — the
+                                        "Find us on Google" button on the site will use it instantly.
+                                    </p>
+                                    <form onSubmit={saveGbp} className="mt-6">
+                                        <input
+                                            type="url"
+                                            value={gbp}
+                                            onChange={(e) => { setGbp(e.target.value); setGbpSaved(false); }}
+                                            placeholder="https://maps.app.goo.gl/…"
+                                            className="w-full rounded-xl border border-[#DEE2E8] bg-white px-4 py-3.5 text-base outline-none transition-colors focus:border-[#B8912A]"
+                                            data-testid="gbp-url-input"
+                                        />
+                                        {gbpError && <p className="mt-3 text-sm text-red-700" data-testid="gbp-error">{gbpError}</p>}
+                                        <button
+                                            type="submit"
+                                            data-testid="gbp-save-button"
+                                            className="mt-5 flex h-12 items-center justify-center gap-2 rounded-full bg-[#16233F] px-8 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5"
+                                        >
+                                            Save link
+                                        </button>
+                                        {gbpSaved && (
+                                            <p className="mt-4 flex items-center gap-2 text-sm text-[#B8912A]" data-testid="gbp-saved">
+                                                <CheckCircle2 className="h-4 w-4" /> Saved — the site button now uses this link.
+                                            </p>
+                                        )}
+                                    </form>
+                                </div>
+                            </div>
                         )}
                     </div>
                 )}
