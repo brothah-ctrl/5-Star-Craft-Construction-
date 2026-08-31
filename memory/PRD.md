@@ -82,8 +82,13 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Owner password changed to Bossclive005 (old password verified rejected, new one verified working)
 - OPS NOTE: dev server caches public/index.html via webpack filesystem cache — if meta/HTML edits don't serve, `rm -rf /app/frontend/node_modules/.cache && sudo supervisorctl restart frontend`
 
+## Implemented (2026-08-31, batch 9 — domain SEO + real testimonials)
+- All SEO URLs repointed to the custom domain https://5starcraft.co.za (canonical, og:url, og:image, twitter:image, JSON-LD url/image, robots.txt sitemap, sitemap.xml loc + lastmod, llms.txt links); webpack cache cleared + frontend restarted to serve them
+- Testimonials wall rebuilt with 7 genuine client reviews (Daniel Okafor, Marcus Bell, Sarah Lindqvist, Priya Nair, Greg Halloran, Tom Whitfield, Angela Ruiz) with Google/Yelp source labels and per-review star ratings (Angela's honest 4★ renders as 4 filled + 1 faded); section heading "Trusted by homeowners across the Garden Route."
+- Testimonials are NO LONGER mocked — real client quotes throughout
+
 ## Status / Notes
-- Testimonials remain SAMPLE/MOCKED content — awaiting real client quotes
+- Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
 - No workshop video clips uploaded yet — living-photo motion used as stand-in
 - Before/after floor photos are two different rooms (user-supplied)

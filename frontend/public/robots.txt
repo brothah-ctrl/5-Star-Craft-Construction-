@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bespoke-timber-7.preview.emergentagent.com/sitemap.xml
+Sitemap: https://5starcraft.co.za/sitemap.xml
