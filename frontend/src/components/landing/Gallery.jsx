@@ -14,9 +14,10 @@ export const Gallery = () => {
         { src: IMAGES.wardrobe, title: "LED-lit Fitted Wardrobe", tag: "Wardrobes" },
         { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Bespoke Furniture" },
         { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Custom Interiors" },
-        { src: IMAGES.floorAfter, title: "Ebony Floor Revival", tag: "Wooden Flooring" },
+        { src: IMAGES.flooringLiving, title: "Wide-Plank Wooden Floor", tag: "Wooden Flooring" },
         { src: IMAGES.tiles, title: "Porcelain Floor Fitting", tag: "Tiling" },
         { src: IMAGES.floorTiles, title: "Polished Porcelain Living Floor", tag: "Tiling" },
+        { src: IMAGES.kitchenModern, title: "Modern Timber Kitchen", tag: "Kitchen Units" },
     ].map((p, i) => ({ ...p, span: PROJECT_SPANS[i % PROJECT_SPANS.length] }));
 
     useEffect(() => {

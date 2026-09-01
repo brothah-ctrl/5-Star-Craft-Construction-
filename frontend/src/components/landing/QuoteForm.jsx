@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { MessageCircle, Phone, Send, CheckCircle2 } from "lucide-react";
+import { MessageCircle, Phone, Send, CheckCircle2, Star, ArrowUpRight } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
-import { IMAGES, WHATSAPP_URL, PHONE_URL, PHONE_DISPLAY } from "@/pages/LandingPage";
+import { IMAGES, SITE, WHATSAPP_URL, WHATSAPP_CATALOG_URL, PHONE_URL, PHONE_DISPLAY } from "@/pages/LandingPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const SERVICES = [
@@ -71,7 +71,7 @@ export const QuoteForm = () => {
                                 className="kenburns h-56 w-full object-cover"
                                 data-testid="quote-image"
                             />
-                            <div className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-white/75 px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-[#2D241E] backdrop-blur-xl">
+                            <div className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-white/75 px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-[#16233F] backdrop-blur-xl">
                                 On the bench now
                             </div>
                         </div>
@@ -83,18 +83,27 @@ export const QuoteForm = () => {
                                 target="_blank"
                                 rel="noreferrer"
                                 data-testid="quote-whatsapp-button"
-                                className="flex items-center gap-2 rounded-full bg-[#2D241E] px-7 py-3.5 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-1"
+                                className="flex items-center gap-2 rounded-full bg-[#16233F] px-7 py-3.5 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-1"
                             >
                                 <MessageCircle className="h-4 w-4" /> WhatsApp Clive
                             </a>
                             <a
                                 href={PHONE_URL}
                                 data-testid="quote-call-button"
-                                className="flex items-center gap-2 rounded-full border border-[#2D241E]/25 px-7 py-3.5 text-sm font-medium text-[#2D241E] transition-colors duration-300 hover:border-[#2D241E]"
+                                className="flex items-center gap-2 rounded-full border border-[#16233F]/25 px-7 py-3.5 text-sm font-medium text-[#16233F] transition-colors duration-300 hover:border-[#16233F]"
                             >
                                 <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
                             </a>
                         </div>
+                        <a
+                            href={WHATSAPP_CATALOG_URL}
+                            target="_blank"
+                            rel="noreferrer"
+                            data-testid="quote-catalog-link"
+                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#B8912A] underline-offset-4 hover:underline"
+                        >
+                            Browse our WhatsApp catalog <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
                     </Reveal>
                 </div>
 
@@ -116,10 +125,25 @@ export const QuoteForm = () => {
                                     target="_blank"
                                     rel="noreferrer"
                                     data-testid="quote-success-whatsapp"
-                                    className="mt-8 flex items-center gap-2 rounded-full border border-[#2D241E]/25 px-7 py-3.5 text-sm font-medium text-[#2D241E] transition-colors duration-300 hover:border-[#2D241E]"
+                                    className="mt-8 flex items-center gap-2 rounded-full border border-[#16233F]/25 px-7 py-3.5 text-sm font-medium text-[#16233F] transition-colors duration-300 hover:border-[#16233F]"
                                 >
                                     <MessageCircle className="h-4 w-4" /> Prefer to chat now?
                                 </a>
+                                <div className="mt-6 w-full rounded-2xl border border-[#D9A441]/40 bg-[#F7F4ED] p-5" data-testid="review-prompt-card">
+                                    <p className="flex items-center gap-2 text-sm font-medium text-[#16233F]">
+                                        <Star className="h-4 w-4 fill-[#C9A227] text-[#C9A227]" />
+                                        Happy with our work?
+                                    </p>
+                                    <a
+                                        href={SITE.googleBusinessUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        data-testid="review-prompt-link"
+                                        className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-[#B8912A] underline-offset-4 hover:underline"
+                                    >
+                                        Leave us a Google review <ArrowUpRight className="h-3.5 w-3.5" />
+                                    </a>
+                                </div>
                             </div>
                         ) : (
                             <form onSubmit={submit} data-testid="quote-form">
@@ -164,7 +188,7 @@ export const QuoteForm = () => {
                                     type="submit"
                                     disabled={status === "sending"}
                                     data-testid="quote-submit-button"
-                                    className="group mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-[#2D241E] px-8 py-4 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
+                                    className="group mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-[#16233F] px-8 py-4 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
                                 >
                                     {status === "sending" ? "Sending..." : "Send Enquiry"}
                                     <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />

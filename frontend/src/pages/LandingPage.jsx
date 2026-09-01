@@ -29,6 +29,8 @@ export const IMAGES = {
     wardrobeProgress: "/photos/wardrobe-progress.jpg",
     tiles: "/photos/tiles.jpg",
     floorTiles: "/photos/floor-tiles.jpg",
+    kitchenModern: "/photos/kitchen-modern.jpg",
+    flooringLiving: "/photos/flooring-living.jpg",
     hinge: "/photos/hinge.jpg",
     wendy1: "/photos/wendy-1.jpg",
     wendy2: "/photos/wendy-2.jpg",
@@ -37,6 +39,7 @@ export const IMAGES = {
 };
 
 export const WHATSAPP_URL = "https://wa.me/27840900658";
+export const WHATSAPP_CATALOG_URL = "https://wa.me/c/146815018094657";
 export const PHONE_URL = "tel:+27840900658";
 export const PHONE_DISPLAY = "+27 84 090 0658";
 export const SITE = {

@@ -1,6 +1,6 @@
-import { MessageCircle, Phone, ArrowUp } from "lucide-react";
+import { MessageCircle, Phone, ArrowUp, ArrowUpRight } from "lucide-react";
 import { Reveal, Overline } from "@/components/landing/Reveal";
-import { WHATSAPP_URL, PHONE_URL, PHONE_DISPLAY } from "@/pages/LandingPage";
+import { WHATSAPP_URL, WHATSAPP_CATALOG_URL, PHONE_URL, PHONE_DISPLAY } from "@/pages/LandingPage";
 
 export const Footer = () => (
     <footer id="contact" className="rounded-t-[2.5rem] bg-[#16233F] px-6 py-24 text-[#F7F7F5] lg:px-12 lg:py-32" data-testid="footer-section">
@@ -46,6 +46,9 @@ export const Footer = () => (
                         <p className="mt-3 text-sm text-[#F7F7F5]/80">Clive — Founder &amp; Master Carpenter</p>
                         <a href={PHONE_URL} className="mt-1 block text-sm text-[#F7F7F5]/80 underline-offset-4 hover:underline" data-testid="footer-phone-link">
                             {PHONE_DISPLAY}
+                        </a>
+                        <a href={WHATSAPP_CATALOG_URL} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-sm text-[#C9A227] underline-offset-4 hover:underline" data-testid="footer-catalog-link">
+                            WhatsApp catalog <ArrowUpRight className="h-3.5 w-3.5" />
                         </a>
                     </div>
                     <div>

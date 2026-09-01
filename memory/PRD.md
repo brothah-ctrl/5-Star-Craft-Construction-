@@ -87,6 +87,14 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Testimonials wall rebuilt with 7 genuine client reviews (Daniel Okafor, Marcus Bell, Sarah Lindqvist, Priya Nair, Greg Halloran, Tom Whitfield, Angela Ruiz) with Google/Yelp source labels and per-review star ratings (Angela's honest 4★ renders as 4 filled + 1 faded); section heading "Trusted by homeowners across the Garden Route."
 - Testimonials are NO LONGER mocked — real client quotes throughout
 
+## Implemented (2026-09-01, batch 10 — review schema + catalog + launch check)
+- JSON-LD gained aggregateRating (4.9, 7 reviews) + full review[] array with author names/ratings (note: Google does not show self-serving LocalBusiness review stars in SERPs; markup added per request, AI assistants still read it)
+- "Leave us a Google review" prompt card on the enquiry success panel (links to SITE.googleBusinessUrl — live once GBP URL is pasted in owner panel Settings)
+- WhatsApp catalog link (https://wa.me/c/146815018094657) added: quote section side ("Browse our WhatsApp catalog"), footer contact column, llms.txt
+- Two new uploads added to portfolio: Modern Timber Kitchen (kitchenModern) + Wide-Plank Wooden Floor (flooringLiving, replaced Ebony Floor Revival per visual edit); both added to owner-panel photo slots (18 slots total)
+- Gallery edit: ebony floor item replaced with 5starfloor image per AGENTIC_EDIT
+- Launch checklist sweep passed: backend health, enquiry email_sent:true, images map, settings, login wrong/right, all 17 photos HTTP 200, 8 gallery items, review schema served, 4 tel links + 7 wa.me links, FAB + sticky CTA present, quote success + review card verified in browser
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

@@ -24,6 +24,8 @@ const PHOTO_SLOTS = [
     { key: "floorBefore", label: "Slider — Floor before" },
     { key: "tiles", label: "Portfolio — Tiles" },
     { key: "floorTiles", label: "Portfolio — Polished tiles" },
+    { key: "kitchenModern", label: "Portfolio — Modern timber kitchen" },
+    { key: "flooringLiving", label: "Portfolio — Wooden floor" },
     { key: "hinge", label: "Quote section — photo" },
     { key: "wendy1", label: "Wendy specials — main" },
     { key: "wendy2", label: "Wendy specials — second" },
