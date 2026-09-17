@@ -110,6 +110,12 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Wendy House Specials gained three starting-from price cards (Standard from R19 500 / Office-Studio from R32 000 / Guest Cottage from R48 000) — PLACEHOLDER numbers chosen by agent, pending Clive's real prices
 - heroVideo still not present in db.site_images — the "done" hero clip did not reach storage; owner must upload via panel (Photos → Hero video)
 
+## Implemented (2026-09-17, batch 14 — AI image generation)
+- Owner panel gained an "AI Studio" tab: prompt box → POST /api/admin/generate-image (gpt-image-1 via emergentintegrations + EMERGENT_LLM_KEY) → image stored in object storage (5star-crafts/generated/) → preview with slot dropdown + "Use on site" (POST /api/admin/assign-image) which instantly assigns the generated image to any of the 18 site photo slots
+- /api/files serving now also resolves generated_images records; both endpoints admin-gated
+- Verified live: generated a real image (pale-oak kitchen), assigned it to a slot, confirmed the public image map and file serving, then restored the original photo
+- emergentintegrations==0.2.0 added to requirements.txt
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

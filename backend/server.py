@@ -420,6 +420,8 @@ async def public_images():
 async def serve_site_file(path: str):
     record = await db.site_images.find_one({"storage_path": path}, {"_id": 0})
     if not record:
+        record = await db.generated_images.find_one({"storage_path": path}, {"_id": 0})
+    if not record:
         raise HTTPException(status_code=404, detail="File not found")
     data, content_type = await get_object(path)
     return Response(
@@ -428,8 +430,45 @@ async def serve_site_file(path: str):
         headers={"Cache-Control": "public, max-age=300"},
     )
 
-class SiteSettings(BaseModel):
-    google_business_url: str = Field(default="", max_length=500)
+class ImagePrompt(BaseModel):
+    prompt: str = Field(min_length=5, max_length=1000)
+
+class AssignImage(BaseModel):
+    slot: str = Field(min_length=2, max_length=40)
+    storage_path: str = Field(min_length=5, max_length=300)
+
+@api_router.post("/admin/generate-image")
+async def generate_image(input: ImagePrompt, request: Request):
+    await require_admin(request)
+    from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
+    image_gen = OpenAIImageGeneration(api_key=os.environ.get("EMERGENT_LLM_KEY"))
+    images = await image_gen.generate_images(prompt=input.prompt, model="gpt-image-1", number_of_images=1)
+    if not images:
+        raise HTTPException(status_code=500, detail="No image was generated")
+    path = f"{APP_NAME}/generated/{uuid.uuid4().hex}.png"
+    await put_object(path, images[0], "image/png")
+    await db.generated_images.insert_one({
+        "id": str(uuid.uuid4()),
+        "prompt": input.prompt,
+        "storage_path": path,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {"url": f"/api/files/{path}", "storage_path": path, "prompt": input.prompt}
+
+@api_router.post("/admin/assign-image")
+async def assign_image(input: AssignImage, request: Request):
+    await require_admin(request)
+    if not input.storage_path.startswith(f"{APP_NAME}/"):
+        raise HTTPException(status_code=400, detail="Invalid image path")
+    await db.site_images.update_one(
+        {"slot": input.slot},
+        {"$set": {"slot": input.slot, "storage_path": input.storage_path, "content_type": "image/png",
+                  "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+    return {"slot": input.slot, "url": f"/api/files/{input.storage_path}"}
+
+class SiteSettings(BaseModel):    google_business_url: str = Field(default="", max_length=500)
 
 @api_router.get("/settings")
 async def get_settings():

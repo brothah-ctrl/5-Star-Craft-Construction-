@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Lock, LogOut, ArrowLeft, Inbox, Upload, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import { Lock, LogOut, ArrowLeft, Inbox, Upload, Eye, EyeOff, CheckCircle2, Sparkles } from "lucide-react";
 import { IMAGES } from "@/pages/LandingPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -8,6 +8,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const TABS = [
     { id: "enquiries", label: "Enquiries" },
     { id: "photos", label: "Photos" },
+    { id: "studio", label: "AI Studio" },
     { id: "settings", label: "Settings" },
 ];
 
@@ -50,6 +51,14 @@ export default function AdminPage() {
     const [show, setShow] = useState(false);
     const [loginError, setLoginError] = useState("");
     const [busy, setBusy] = useState(false);
+    const [prompt, setPrompt] = useState("");
+    const [genBusy, setGenBusy] = useState(false);
+    const [genUrl, setGenUrl] = useState("");
+    const [genPath, setGenPath] = useState("");
+    const [genError, setGenError] = useState("");
+    const [assignSlot, setAssignSlot] = useState("hero");
+    const [assignBusy, setAssignBusy] = useState(false);
+    const [genDone, setGenDone] = useState(false);
 
     useEffect(() => {
         if (location.state?.user) return;
@@ -142,6 +151,49 @@ export default function AdminPage() {
         const data = await res.json().catch(() => ({}));
         if (res.ok) setGbpSaved(true);
         else setGbpError(typeof data.detail === "string" ? data.detail : "Save failed");
+    };
+
+    const generate = async () => {
+        setGenBusy(true);
+        setGenError("");
+        setGenDone(false);
+        setGenUrl("");
+        try {
+            const res = await fetch(`${API}/admin/generate-image`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Generation failed");
+            setGenUrl(data.url);
+            setGenPath(data.storage_path);
+        } catch (err) {
+            setGenError(err.message);
+        }
+        setGenBusy(false);
+    };
+
+    const assign = async () => {
+        setAssignBusy(true);
+        setGenDone(false);
+        try {
+            const res = await fetch(`${API}/admin/assign-image`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ slot: assignSlot, storage_path: genPath }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Assign failed");
+            IMAGES[assignSlot] = data.url;
+            setPhotos((p) => ({ ...p, [assignSlot]: data.url }));
+            setGenDone(true);
+        } catch (err) {
+            setGenError(err.message);
+        }
+        setAssignBusy(false);
     };
 
     return (
@@ -337,6 +389,67 @@ export default function AdminPage() {
                                             </label>
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {tab === "studio" && (
+                            <div className="mt-10 max-w-2xl" data-testid="admin-studio">
+                                <div className="rounded-[1.5rem] border border-[#DEE2E8] bg-white/60 p-7">
+                                    <h2 className="font-serif text-2xl font-medium">AI image studio</h2>
+                                    <p className="mt-2 text-sm leading-relaxed text-[#55606E]">
+                                        Describe the image you need — a kitchen concept, a Wendy house style,
+                                        a flooring look — then assign it straight to any photo slot on the
+                                        site. Generation takes up to a minute.
+                                    </p>
+                                    <textarea
+                                        rows={4}
+                                        value={prompt}
+                                        onChange={(e) => setPrompt(e.target.value)}
+                                        placeholder="e.g. A modern pale-oak kitchen with brass handles, soft morning light, Garden Route style"
+                                        className="mt-6 w-full resize-none rounded-xl border border-[#DEE2E8] bg-white px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#B8912A]"
+                                        data-testid="studio-prompt-input"
+                                    />
+                                    {genError && <p className="mt-3 text-sm text-red-700" data-testid="studio-error">{genError}</p>}
+                                    <button
+                                        onClick={generate}
+                                        disabled={genBusy || prompt.trim().length < 5}
+                                        data-testid="studio-generate-button"
+                                        className="mt-5 flex h-12 items-center justify-center gap-2 rounded-full bg-[#16233F] px-8 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
+                                    >
+                                        <Sparkles className="h-4 w-4" />
+                                        {genBusy ? "Generating… (up to a minute)" : "Generate image"}
+                                    </button>
+                                    {genUrl && (
+                                        <div className="mt-6" data-testid="studio-result">
+                                            <img src={genUrl} alt={prompt} className="w-full rounded-xl border border-[#DEE2E8] object-cover" />
+                                            <div className="mt-4 flex flex-wrap items-center gap-3">
+                                                <select
+                                                    value={assignSlot}
+                                                    onChange={(e) => { setAssignSlot(e.target.value); setGenDone(false); }}
+                                                    className="rounded-xl border border-[#DEE2E8] bg-white px-4 py-3 text-sm outline-none"
+                                                    data-testid="studio-slot-select"
+                                                >
+                                                    {PHOTO_SLOTS.map((s) => (
+                                                        <option key={s.key} value={s.key}>{s.label}</option>
+                                                    ))}
+                                                </select>
+                                                <button
+                                                    onClick={assign}
+                                                    disabled={assignBusy}
+                                                    data-testid="studio-assign-button"
+                                                    className="flex h-11 items-center rounded-full bg-[#B8912A] px-6 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60"
+                                                >
+                                                    {assignBusy ? "Assigning…" : "Use on site"}
+                                                </button>
+                                            </div>
+                                            {genDone && (
+                                                <p className="mt-3 flex items-center gap-2 text-sm text-[#B8912A]" data-testid="studio-assigned">
+                                                    <CheckCircle2 className="h-4 w-4" /> Live on the site — that photo slot now shows this image.
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}
