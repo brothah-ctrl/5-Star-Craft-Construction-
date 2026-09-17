@@ -12,7 +12,7 @@ export const Gallery = () => {
     const PROJECTS = [
         { src: IMAGES.kitchen, title: "The Constantia Kitchen", tag: "Kitchen Units" },
         { src: IMAGES.wardrobe, title: "LED-lit Fitted Wardrobe", tag: "Wardrobes" },
-        { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Bespoke Furniture" },
+        { src: IMAGES.bedside, title: "Brass & Lacquer Nightstand", tag: "Custom Furniture" },
         { src: IMAGES.headboard, title: "Pale Oak Headboard Wall", tag: "Custom Interiors" },
         { src: IMAGES.flooringLiving, title: "Wide-Plank Wooden Floor", tag: "Wooden Flooring" },
         { src: IMAGES.tiles, title: "Porcelain Floor Fitting", tag: "Tiling" },

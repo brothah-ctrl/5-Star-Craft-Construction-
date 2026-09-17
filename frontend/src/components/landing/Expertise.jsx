@@ -6,7 +6,7 @@ const DISCIPLINES = [
     { icon: ChefHat, title: "Kitchen Units", desc: "Custom kitchens in Knysna — designed, built and fitted around the way you cook and live." },
     { icon: Layers, title: "Built-in Cabinets", desc: "Built-in cupboards and storage that fit your walls to the millimetre." },
     { icon: DoorOpen, title: "Wardrobes", desc: "Fitted wardrobes with shelving, lighting and finishes matched to your room." },
-    { icon: Table, title: "Coffee Tables", desc: "Bespoke coffee tables and furniture, handcrafted in solid timber." },
+    { icon: Table, title: "Coffee Tables", desc: "Custom coffee tables and furniture, handcrafted in solid timber." },
     { icon: LayoutGrid, title: "Wooden Flooring", desc: "Wooden floors installed, sanded and sealed for a rich, lasting finish." },
     { icon: Library, title: "Shelving", desc: "Floating shelves, bookcases and display shelving shaped to any space." },
     { icon: Hammer, title: "General Carpentry", desc: "General carpentry work — repairs, fitments and finishing touches, no job too small." },

@@ -5,7 +5,7 @@ import { Overline } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
 
 const EASE = [0.16, 1, 0.3, 1];
-const LINES = ["Custom craftsmanship,", "bespoke timber work,", "tailored to every space."];
+const LINES = ["Custom craftsmanship,", "handcrafted timber work,", "tailored to every space."];
 const SLICES = Array.from({ length: 12 }, (_, i) => i);
 
 export const Hero = () => {
@@ -94,7 +94,7 @@ export const Hero = () => {
                 >
                     <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-[#F7F7F5]/70 sm:text-lg">
                         Creating beautiful spaces, built around you. Custom kitchens, built-in
-                        cupboards, bespoke furniture, wooden flooring, tiling, painting and
+                        cupboards, custom furniture, wooden flooring, tiling, painting and
                         renovations across Knysna and the Garden Route.
                     </p>
 

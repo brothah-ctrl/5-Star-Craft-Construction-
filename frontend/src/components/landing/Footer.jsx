@@ -54,7 +54,7 @@ export const Footer = () => (
                     <div>
                         <p className="text-[11px] uppercase tracking-[0.25em] text-[#C9A227]">Studio</p>
                         <p className="mt-3 text-sm text-[#F7F7F5]/80">
-                            Bespoke carpentry &amp; construction for homeowners and architects.
+                            Custom carpentry &amp; construction for homeowners and architects.
                         </p>
                     </div>
                     <div>

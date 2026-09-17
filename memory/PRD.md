@@ -101,6 +101,10 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Owner panel Settings tab: "Export website code" — GET /api/admin/export streams a zip of frontend/src + public + backend + configs + README-ENV.txt (109 files, ~3.2MB; .env/secrets excluded, admin-only 401 without session)
 - Verified: export zip integrity (unzip -l), video upload round-trip (test record cleaned afterwards so navy fallback remains), hero renders with slices/headline, video card + export button present in owner panel
 
+## Implemented (2026-09-17, batch 12 — copy cleanup + domain launch prep)
+- Removed every instance of "bespoke" site-wide (hero headline now "handcrafted timber work,", support copy, services, gallery tag, footer, meta description/keywords/OG, JSON-LD, llms.txt) — verified 0 occurrences in source, served HTML and rendered page
+- Deployment steps for 5starcraft.co.za relayed to user (Publish button → Domain tab auto-link or manual A records 162.159.142.117 / 172.66.2.113 + www CNAME)
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
