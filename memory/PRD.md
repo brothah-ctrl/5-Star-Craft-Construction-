@@ -105,6 +105,11 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Removed every instance of "bespoke" site-wide (hero headline now "handcrafted timber work,", support copy, services, gallery tag, footer, meta description/keywords/OG, JSON-LD, llms.txt) — verified 0 occurrences in source, served HTML and rendered page
 - Deployment steps for 5starcraft.co.za relayed to user (Publish button → Domain tab auto-link or manual A records 162.159.142.117 / 172.66.2.113 + www CNAME)
 
+## Implemented (2026-09-17, batch 13 — 3D badge hero + Wendy prices)
+- Interactive 3D hero: the uploaded award badge (/photos/badge.png from 5star-logo-assets.zip) floats above the headline with spring-physics mouse tilt (rotateX/rotateY following cursor across the hero), slow idle float, gold glow, and a spin-in entrance as the on-load moment
+- Wendy House Specials gained three starting-from price cards (Standard from R19 500 / Office-Studio from R32 000 / Guest Cottage from R48 000) — PLACEHOLDER numbers chosen by agent, pending Clive's real prices
+- heroVideo still not present in db.site_images — the "done" hero clip did not reach storage; owner must upload via panel (Photos → Hero video)
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set

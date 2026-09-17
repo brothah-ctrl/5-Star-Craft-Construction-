@@ -2,6 +2,12 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
 
+const PRICES = [
+    { name: "Standard Wendy", price: "from R19 500" },
+    { name: "Office / Studio Wendy", price: "from R32 000" },
+    { name: "Guest Cottage Wendy", price: "from R48 000" },
+];
+
 const wrapCls =
     "group overflow-hidden rounded-[1.5rem] border border-[#D9A441]/35 shadow-[0_18px_45px_-24px_rgba(22,35,63,0.35)]";
 const imgCls = "w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105";
@@ -40,6 +46,23 @@ export const WendySpecials = () => (
                         </div>
                     </div>
                 </div>
+
+                <Reveal delay={0.2}>
+                    <div className="mt-10 grid gap-4 sm:grid-cols-3" data-testid="wendy-prices">
+                        {PRICES.map((p) => (
+                            <div
+                                key={p.name}
+                                className="rounded-2xl border border-[#D9A441]/35 bg-white/60 p-5 text-center shadow-sm"
+                                data-testid={`wendy-price-${p.name.toLowerCase().replace(/[^a-z]+/g, "-")}`}
+                            >
+                                <p className="font-josefin text-[11px] font-semibold uppercase tracking-[0.24em] text-[#16233F]/60">
+                                    {p.name}
+                                </p>
+                                <p className="mt-2 font-josefin text-2xl font-bold text-[#16233F]">{p.price}</p>
+                            </div>
+                        ))}
+                    </div>
+                </Reveal>
 
                 <div className="mt-10 grid gap-5 md:grid-cols-12">
                     <Reveal delay={0.1} className="md:col-span-7">

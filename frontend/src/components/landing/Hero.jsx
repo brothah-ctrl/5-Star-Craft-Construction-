@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { Overline } from "@/components/landing/Reveal";
 import { IMAGES } from "@/pages/LandingPage";
@@ -11,6 +11,10 @@ const SLICES = Array.from({ length: 12 }, (_, i) => i);
 export const Hero = () => {
     const [hover, setHover] = useState(false);
     const sliceRef = useRef(null);
+    const mx = useMotionValue(0);
+    const my = useMotionValue(0);
+    const badgeRX = useSpring(my, { stiffness: 110, damping: 14 });
+    const badgeRY = useSpring(mx, { stiffness: 110, damping: 14 });
 
     const tilt = (e) => {
         const el = sliceRef.current;
@@ -19,9 +23,13 @@ export const Hero = () => {
         const x = ((e.clientX - r.left) / r.width - 0.5) * 7;
         const y = ((e.clientY - r.top) / r.height - 0.5) * 7;
         el.style.transform = `perspective(1200px) rotateX(${-y}deg) rotateY(${x}deg)`;
+        mx.set(x * 2.4);
+        my.set(-y * 2.4);
     };
     const reset = () => {
         if (sliceRef.current) sliceRef.current.style.transform = "perspective(1200px)";
+        mx.set(0);
+        my.set(0);
         setHover(false);
     };
 
@@ -64,6 +72,24 @@ export const Hero = () => {
             <div className="pointer-events-none absolute inset-0 bg-[#16233F]/30" />
 
             <div className="relative z-10 mx-auto max-w-3xl text-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.6, rotate: -14 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
+                    className="relative mx-auto mb-10 w-fit"
+                    style={{ perspective: 800 }}
+                >
+                    <div className="absolute inset-0 -m-6 rounded-full bg-[#D9A441]/25 blur-2xl" />
+                    <motion.img
+                        src="/photos/badge.png"
+                        alt="5 Star Craft & Construction award-winning badge — Garden Route"
+                        style={{ rotateX: badgeRX, rotateY: badgeRY, transformPerspective: 800 }}
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+                        className="relative h-28 w-28 rounded-full shadow-[0_20px_60px_-15px_rgba(217,164,65,0.45)] md:h-36 md:w-36"
+                        data-testid="hero-badge"
+                    />
+                </motion.div>
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
