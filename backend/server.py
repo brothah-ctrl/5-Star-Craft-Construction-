@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Form, File, UploadFile
+from fastapi.responses import StreamingResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -12,6 +13,8 @@ import re
 import ipaddress
 import httpx
 import bcrypt
+import io
+import zipfile
 from html import escape
 from html.parser import HTMLParser
 from urllib.parse import urlparse
@@ -380,6 +383,19 @@ ALLOWED_IMAGE_TYPES = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "w
 @api_router.post("/admin/images")
 async def upload_site_image(request: Request, slot: str = Form(...), file: UploadFile = File(...)):
     await require_admin(request)
+    if slot == "heroVideo" and file.content_type in ("video/mp4", "video/webm"):
+        data = await file.read()
+        if len(data) > 60 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="Video must be under 60MB")
+        path = f"{APP_NAME}/site/heroVideo.{'mp4' if file.content_type == 'video/mp4' else 'webm'}"
+        result = await put_object(path, data, file.content_type)
+        await db.site_images.update_one(
+            {"slot": slot},
+            {"$set": {"slot": slot, "storage_path": result["path"], "content_type": file.content_type,
+                      "updated_at": datetime.now(timezone.utc).isoformat()}},
+            upsert=True,
+        )
+        return {"slot": slot, "url": f"/api/files/{result['path']}"}
     if file.content_type not in ALLOWED_IMAGE_TYPES:
         raise HTTPException(status_code=400, detail="Only JPG, PNG or WebP images")
     data = await file.read()
@@ -455,6 +471,48 @@ async def startup_tasks():
                 await db.users.update_one({"email": admin_email}, {"$set": {"password_hash": hash_password(admin_password)}})
     except Exception:
         logger.error("Admin seed failed", exc_info=True)
+
+ENV_README = """5 Star Craft & Construction — website export
+
+Required environment variables (create these yourself; secrets are never exported):
+
+backend/.env
+  MONGO_URL, DB_NAME, CORS_ORIGINS
+  EMERGENT_EMAIL_KEY (managed Resend email)
+  EMAIL_FROM_NAME, OWNER_EMAIL
+  EMERGENT_LLM_KEY (object storage)
+  APP_NAME
+  ADMIN_EMAIL, ADMIN_EMAILS, ADMIN_PASSWORD
+
+frontend/.env
+  REACT_APP_BACKEND_URL
+  WDS_SOCKET_PORT=443
+
+Run: cd backend && pip install -r requirements.txt && uvicorn server:app --port 8001
+     cd frontend && yarn install && yarn start
+"""
+
+@api_router.get("/admin/export")
+async def export_website_code(request: Request):
+    await require_admin(request)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for src_root, arc in (("/app/frontend/src", "frontend/src"), ("/app/frontend/public", "frontend/public"), ("/app/backend", "backend")):
+            for dirpath, dirnames, filenames in os.walk(src_root):
+                dirnames[:] = [d for d in dirnames if d not in ("__pycache__", "node_modules", ".cache")]
+                for name in filenames:
+                    if name == ".env":
+                        continue
+                    full = os.path.join(dirpath, name)
+                    z.write(full, os.path.join(arc, os.path.relpath(full, src_root)))
+        for name in ("package.json", "tailwind.config.js", "postcss.config.js", "craco.config.js", "jsconfig.json", "components.json"):
+            p = os.path.join("/app/frontend", name)
+            if os.path.exists(p):
+                z.write(p, f"frontend/{name}")
+        z.write("/app/backend/requirements.txt", "backend/requirements.txt")
+        z.writestr("README-ENV.txt", ENV_README)
+    buf.seek(0)
+    return StreamingResponse(buf, media_type="application/zip", headers={"Content-Disposition": "attachment; filename=5starcraft-website.zip"})
 
 # Include the router in the main app
 app.include_router(api_router)

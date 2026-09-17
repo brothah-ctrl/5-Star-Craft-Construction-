@@ -36,6 +36,7 @@ export const IMAGES = {
     wendy2: "/photos/wendy-2.jpg",
     wendy3: "/photos/wendy-3.jpg",
     wendy4: "/photos/wendy-4.jpg",
+    heroVideo: "",
 };
 
 export const WHATSAPP_URL = "https://wa.me/27840900658";

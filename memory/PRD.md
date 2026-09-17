@@ -95,6 +95,12 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Gallery edit: ebony floor item replaced with 5starfloor image per AGENTIC_EDIT
 - Launch checklist sweep passed: backend health, enquiry email_sent:true, images map, settings, login wrong/right, all 17 photos HTTP 200, 8 gallery items, review schema served, 4 tel links + 7 wa.me links, FAB + sticky CTA present, quote success + review card verified in browser
 
+## Implemented (2026-09-17, batch 11 — video hero + export package)
+- Hero rebuilt as full-width cinematic band per client's snippet: navy #16233F fallback, autoplay/muted/loop/playsinline <video> driven by heroVideo override slot, 12 glass slices with hover split + mousemove 3D tilt, centered overlay keeping the masked line-by-line Fraunces headline (cream + gold italic), gold solid primary CTA + outlined secondary
+- Owner panel Photos tab: "Hero video — top of the page" card accepts MP4/WebM up to 60MB (backend upload endpoint extended for video, stored in object storage, served via /api/files); navy fallback until a clip is uploaded
+- Owner panel Settings tab: "Export website code" — GET /api/admin/export streams a zip of frontend/src + public + backend + configs + README-ENV.txt (109 files, ~3.2MB; .env/secrets excluded, admin-only 401 without session)
+- Verified: export zip integrity (unzip -l), video upload round-trip (test record cleaned afterwards so navy fallback remains), hero renders with slices/headline, video card + export button present in owner panel
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
