@@ -333,34 +333,6 @@ export default function AdminPage() {
                                     the live site. JPG, PNG or WebP, up to 10MB — updates instantly.
                                 </p>
                                 {photoError && <p className="mt-4 text-sm text-red-700" data-testid="photo-error">{photoError}</p>}
-                                <div className="mt-8 rounded-[1.5rem] border border-[#D9A441]/40 bg-[#F7F4ED] p-5" data-testid="photo-card-heroVideo">
-                                    <div className="flex flex-wrap items-center justify-between gap-4">
-                                        <div className="max-w-sm">
-                                            <p className="text-sm font-semibold">Hero video — top of the page</p>
-                                            <p className="mt-1 text-xs leading-relaxed text-[#55606E]">
-                                                MP4 or WebM, up to 60MB. Until a video is set, the hero shows
-                                                the navy fallback.{photos.heroVideo ? " A video is live now." : ""}
-                                            </p>
-                                        </div>
-                                        <label
-                                            className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#16233F] px-6 text-sm font-medium text-[#F7F7F5] transition-transform duration-300 hover:-translate-y-0.5"
-                                            data-testid="photo-button-heroVideo"
-                                        >
-                                            <Upload className="h-4 w-4" />
-                                            {uploading === "heroVideo" ? "Uploading…" : photos.heroVideo ? "Replace video" : "Upload video"}
-                                            <input
-                                                type="file"
-                                                accept="video/mp4,video/webm"
-                                                className="hidden"
-                                                data-testid="photo-input-heroVideo"
-                                                onChange={(e) => uploadPhoto("heroVideo", e.target.files[0])}
-                                            />
-                                        </label>
-                                    </div>
-                                    {photos.heroVideo && (
-                                        <video src={photos.heroVideo} muted loop autoPlay playsInline className="mt-4 h-40 w-full rounded-xl object-cover" data-testid="hero-video-preview" />
-                                    )}
-                                </div>
                                 <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                                     {PHOTO_SLOTS.map((slot) => (
                                         <div key={slot.key} className="rounded-[1.5rem] border border-[#DEE2E8] bg-white/60 p-4" data-testid={`photo-card-${slot.key}`}>

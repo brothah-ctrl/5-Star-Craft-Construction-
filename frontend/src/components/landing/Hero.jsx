@@ -1,61 +1,66 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { Overline } from "@/components/landing/Reveal";
-import { IMAGES } from "@/pages/LandingPage";
 
 const EASE = [0.16, 1, 0.3, 1];
 const LINES = ["Custom craftsmanship,", "handcrafted timber work,", "tailored to every space."];
 const SLICES = Array.from({ length: 12 }, (_, i) => i);
 
 export const Hero = () => {
-    const [hover, setHover] = useState(false);
-    const sliceRef = useRef(null);
+    const wrapRef = useRef(null);
+    const sliceRefs = useRef([]);
+    const lightRef = useRef(null);
     const mx = useMotionValue(0);
     const my = useMotionValue(0);
     const badgeRX = useSpring(my, { stiffness: 110, damping: 14 });
     const badgeRY = useSpring(mx, { stiffness: 110, damping: 14 });
 
-    const tilt = (e) => {
-        const el = sliceRef.current;
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const x = ((e.clientX - r.left) / r.width - 0.5) * 7;
-        const y = ((e.clientY - r.top) / r.height - 0.5) * 7;
-        el.style.transform = `perspective(1200px) rotateX(${-y}deg) rotateY(${x}deg)`;
-        mx.set(x * 2.4);
-        my.set(-y * 2.4);
+    const onMove = (e) => {
+        const wrap = wrapRef.current;
+        if (!wrap) return;
+        const r = wrap.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        const leanX = (x / r.width - 0.5) * 5;
+        const leanY = (y / r.height - 0.5) * 5;
+        wrap.style.transform = `perspective(1200px) rotateX(${-leanY}deg) rotateY(${leanX}deg)`;
+        mx.set(leanX * 1.8);
+        my.set(-leanY * 1.8);
+        const w = r.width / SLICES.length;
+        sliceRefs.current.forEach((el, i) => {
+            if (!el) return;
+            const dx = Math.abs(x - (i + 0.5) * w);
+            const t = Math.exp(-((dx / (r.width * 0.09)) ** 2));
+            el.style.transform = `translateY(${-t * 22}px)`;
+            el.style.backgroundColor = `rgba(247,247,245,${0.05 + t * 0.11})`;
+        });
+        if (lightRef.current) {
+            lightRef.current.style.opacity = "1";
+            lightRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+        }
     };
-    const reset = () => {
-        if (sliceRef.current) sliceRef.current.style.transform = "perspective(1200px)";
+    const onLeave = () => {
+        if (wrapRef.current) wrapRef.current.style.transform = "perspective(1200px)";
         mx.set(0);
         my.set(0);
-        setHover(false);
+        sliceRefs.current.forEach((el) => {
+            if (!el) return;
+            el.style.transform = "translateY(0px)";
+            el.style.backgroundColor = "rgba(247,247,245,0.05)";
+        });
+        if (lightRef.current) lightRef.current.style.opacity = "0";
     };
 
     return (
         <section
             className="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-[#16233F] px-6 pt-28"
             data-testid="hero-section"
-            onMouseEnter={() => setHover(true)}
-            onMouseMove={tilt}
-            onMouseLeave={reset}
+            onMouseMove={onMove}
+            onMouseLeave={onLeave}
         >
-            {IMAGES.heroVideo ? (
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
-                    data-testid="hero-video"
-                >
-                    <source src={IMAGES.heroVideo} />
-                </video>
-            ) : null}
-
             <div
-                ref={sliceRef}
+                ref={wrapRef}
                 className="pointer-events-none absolute inset-0 flex will-change-transform"
                 style={{ transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)" }}
                 data-testid="hero-slices"
@@ -63,11 +68,19 @@ export const Hero = () => {
                 {SLICES.map((i) => (
                     <div
                         key={i}
-                        className="hero-slice h-full flex-1 border-x border-white/[0.04] bg-white/[0.05]"
-                        style={{ transform: hover ? `translateY(${i % 2 === 0 ? -18 : 18}px)` : "translateY(0px)" }}
+                        ref={(el) => (sliceRefs.current[i] = el)}
+                        className="hero-slice h-full flex-1 border-x border-white/[0.04]"
+                        style={{ backgroundColor: "rgba(247,247,245,0.05)" }}
                     />
                 ))}
             </div>
+
+            <div
+                ref={lightRef}
+                className="pointer-events-none absolute left-0 top-0 h-[420px] w-[420px] rounded-full opacity-0 transition-opacity duration-500"
+                style={{ background: "radial-gradient(circle, rgba(217,164,65,0.14) 0%, rgba(217,164,65,0.05) 40%, transparent 70%)" }}
+                data-testid="hero-light"
+            />
 
             <div className="pointer-events-none absolute inset-0 bg-[#16233F]/30" />
 

@@ -116,6 +116,12 @@ Build a light, open, spacious landing page for a bespoke carpentry and woodworki
 - Verified live: generated a real image (pale-oak kitchen), assigned it to a slot, confirmed the public image map and file serving, then restored the original photo
 - emergentintegrations==0.2.0 added to requirements.txt
 
+## Implemented (2026-09-22, batch 15 — cursor-reactive hero, video dropped)
+- Hero per approved plan: looped-video concept removed entirely (no video element); 12 glass slices now run a continuous cursor wave (nearest slices lift + brighten with gaussian falloff, direct DOM writes for smoothness); soft gold light spot follows cursor (opacity-capped radial gradient); whole motion layer leans in 3D toward cursor; award badge keeps spring tilt + float; scrim between motion and text; all motion layers pointer-events-none below text z-10
+- Owner panel Photos tab: "Hero video" card removed (backend video upload capability left in place, unused)
+- IMAGES.heroVideo default key removed; .hero-slice CSS gained background-color transition
+- Verified: video element absent, light spot activates on hover, wave visible near cursor in screenshots, calm on mouse-leave, mobile (430px) calm with badge only, hero-video card gone from owner panel
+
 ## Status / Notes
 - Testimonials are real client reviews (added 2026-08-31)
 - OWNER_EMAIL is the integration-test address; enquiries save to MongoDB and the email pipeline returns success (verified end-to-end), but they only reach Clive's real inbox once his email address is set
